@@ -11,11 +11,12 @@ import { Step4CreativeKit } from '@/components/steps/Step4CreativeKit';
 import { Step5LaunchPlan } from '@/components/steps/Step5LaunchPlan';
 import { Step6ResultDoctor } from '@/components/steps/Step6ResultDoctor';
 import { Step7GlossaryAndFAQ } from '@/components/steps/Step7GlossaryAndFAQ';
+import { Footer } from '@/components/Footer';
 import { JargonModal } from '@/components/JargonModal';
 import { GlobalHelpDrawer } from '@/components/GlobalHelpDrawer';
 import { SEVEN_DAY_LAUNCH_PLAN } from '@/config/launchPlan';
 import { toBengaliDigits } from '@/utils/bengaliNumbers';
-import { HelpCircle, Sparkles, Heart, ArrowRight } from 'lucide-react';
+import { HelpCircle, Sparkles, ArrowRight } from 'lucide-react';
 
 export default function Home() {
   const {
@@ -110,15 +111,7 @@ export default function Home() {
       <JargonModal />
 
       {/* Footer */}
-      <footer className="max-w-3xl mx-auto px-4 py-6 text-center text-xs text-slate-500 space-y-2 border-t border-slate-200/60 w-full mt-auto">
-        <p className="flex items-center justify-center gap-1">
-          <span>বাংলাদেশের উদ্যোক্তাদের জন্য ভালোবাসায় তৈরি</span>
-          <Heart className="w-3.5 h-3.5 text-rose-500 fill-rose-500 inline" />
-        </p>
-        <p className="text-[11px] text-slate-400">
-          বিজ্ঞাপন গুরু • ১০০% ফ্রি ও লোকাল রুলস ভিত্তিক • Vercel-এ ডেপ্লয় করার জন্য প্রস্তুত
-        </p>
-      </footer>
+      <Footer />
 
       {/* Mobile Bottom Navigation */}
       <BottomNav />
