@@ -68,7 +68,6 @@ export function Step7GlossaryAndFAQ() {
     setExpandedFaqId(expandedFaqId === id ? null : id);
   };
 
-  // Selected symptom details
   const activeSymptom = TROUBLESHOOTING_SYMPTOMS.find((s) => s.id === selectedSymptomId);
 
   const getSymptomIcon = (iconName: string) => {
@@ -105,29 +104,24 @@ export function Step7GlossaryAndFAQ() {
 
   return (
     <div className="space-y-6 animate-fade-in pb-12">
-      {/* Header Banner */}
-      <div className="bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white p-6 rounded-3xl shadow-xl space-y-4">
+      {/* 2026 Executive Header Banner */}
+      <div className="bg-gradient-to-br from-indigo-950 via-slate-900 to-slate-950 text-white p-6 sm:p-7 rounded-3xl shadow-xl space-y-4 border border-indigo-900/50">
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-2xl bg-indigo-500/30 border border-indigo-400/40 text-indigo-300 flex items-center justify-center">
+          <div className="w-10 h-10 rounded-2xl bg-indigo-500 text-white flex items-center justify-center font-black shadow-md shadow-indigo-500/30">
             <BookOpen className="w-5 h-5" />
           </div>
           <div>
-            <span className="text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded bg-indigo-500/20 text-indigo-300 border border-indigo-500/30">
-              ধাপ ৭ • স্বয়ংসম্পূর্ণ সাহায্য ভাণ্ডার
-            </span>
-            <h2 className="text-xl sm:text-2xl font-black mt-1">সাহায্য কেন্দ্র ও শব্দকোষ</h2>
+            <h2 className="text-xl sm:text-2xl font-black">সাহায্য কেন্দ্র ও শব্দকোষ</h2>
+            <p className="text-xs text-indigo-200">বিজ্ঞাপনের কঠিন ইংরেজি শব্দের সহজ ব্যাখ্যা ও সমস্যা সমাধান</p>
           </div>
         </div>
-        <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
-          বিজ্ঞাপনের কঠিন ইংরেজি শব্দের সহজ বাংলা অর্থ, বাংলাদেশে সাধারণ প্রশ্নোত্তর এবং সমস্যার তাত্ক্ষণিক সমাধান।
-        </p>
 
         {/* 3 Tab Switcher */}
-        <div className="grid grid-cols-3 gap-1.5 p-1 bg-slate-800/80 rounded-2xl border border-slate-700/80 pt-1">
+        <div className="grid grid-cols-3 gap-1.5 p-1.5 bg-slate-800/90 rounded-2xl border border-slate-700/80">
           <button
             type="button"
             onClick={() => setActiveTab('glossary')}
-            className={`py-2 px-2 sm:px-3 rounded-xl text-xs font-bold transition-all text-center flex items-center justify-center gap-1.5 ${
+            className={`py-2.5 px-2 sm:px-3 rounded-xl text-xs font-black transition-all text-center flex items-center justify-center gap-1.5 active:scale-95 ${
               activeTab === 'glossary'
                 ? 'bg-indigo-600 text-white shadow-sm'
                 : 'text-slate-400 hover:text-slate-200'
@@ -140,7 +134,7 @@ export function Step7GlossaryAndFAQ() {
           <button
             type="button"
             onClick={() => setActiveTab('faq')}
-            className={`py-2 px-2 sm:px-3 rounded-xl text-xs font-bold transition-all text-center flex items-center justify-center gap-1.5 ${
+            className={`py-2.5 px-2 sm:px-3 rounded-xl text-xs font-black transition-all text-center flex items-center justify-center gap-1.5 active:scale-95 ${
               activeTab === 'faq'
                 ? 'bg-indigo-600 text-white shadow-sm'
                 : 'text-slate-400 hover:text-slate-200'
@@ -153,9 +147,9 @@ export function Step7GlossaryAndFAQ() {
           <button
             type="button"
             onClick={() => setActiveTab('wizard')}
-            className={`py-2 px-2 sm:px-3 rounded-xl text-xs font-bold transition-all text-center flex items-center justify-center gap-1.5 ${
+            className={`py-2.5 px-2 sm:px-3 rounded-xl text-xs font-black transition-all text-center flex items-center justify-center gap-1.5 active:scale-95 ${
               activeTab === 'wizard'
-                ? 'bg-amber-500 text-slate-950 font-black shadow-sm'
+                ? 'bg-amber-500 text-slate-950 shadow-sm'
                 : 'text-slate-400 hover:text-slate-200'
             }`}
           >
@@ -166,25 +160,25 @@ export function Step7GlossaryAndFAQ() {
       </div>
 
       {/* ========================================================= */}
-      {/* TAB 1: Glossary (বিজ্ঞাপন শব্দকোষ)                       */}
+      {/* TAB 1: Glossary */}
       {/* ========================================================= */}
       {activeTab === 'glossary' && (
         <div className="space-y-4 animate-slide-up">
           {/* Search bar */}
           <div className="relative">
-            <Search className="w-4 h-4 text-slate-400 absolute left-3.5 top-3.5" />
+            <Search className="w-4 h-4 text-slate-400 absolute left-4 top-4" />
             <input
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="যেকোনো শব্দ খুঁজুন (যেমন: Reach, CPM, CTR, ROAS, Pixel, Break-even)..."
-              className="w-full pl-10 pr-4 py-3 rounded-2xl border border-slate-200 bg-white text-xs sm:text-sm font-medium focus:outline-none focus:ring-2 focus:ring-indigo-500 shadow-2xs placeholder:text-slate-400"
+              className="w-full pl-11 pr-4 py-3.5 rounded-2xl border border-slate-200 bg-white text-xs sm:text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-indigo-500 shadow-xs placeholder:text-slate-400"
             />
             {searchQuery && (
               <button
                 type="button"
                 onClick={() => setSearchQuery('')}
-                className="absolute right-3 top-3 text-xs text-slate-400 hover:text-slate-600 bg-slate-100 px-2 py-0.5 rounded-lg"
+                className="absolute right-3.5 top-3.5 text-xs font-bold text-slate-500 hover:text-slate-800 bg-slate-100 px-2.5 py-1 rounded-xl"
               >
                 মুছুন
               </button>
@@ -203,10 +197,10 @@ export function Step7GlossaryAndFAQ() {
               <button
                 key={cat.id}
                 onClick={() => setSelectedJargonCategory(cat.id)}
-                className={`px-3 py-1.5 rounded-xl text-xs font-bold whitespace-nowrap transition-all flex-shrink-0 ${
+                className={`px-3.5 py-2 rounded-xl text-xs font-black whitespace-nowrap transition-all flex-shrink-0 active:scale-95 ${
                   selectedJargonCategory === cat.id
-                    ? 'bg-slate-900 text-white shadow-sm'
-                    : 'bg-white text-slate-600 border border-slate-200 hover:bg-slate-50'
+                    ? 'bg-slate-900 text-white shadow-xs'
+                    : 'bg-white text-slate-600 border border-slate-200/80 hover:bg-slate-50'
                 }`}
               >
                 {cat.label}
@@ -216,7 +210,7 @@ export function Step7GlossaryAndFAQ() {
 
           {/* Jargon Cards */}
           {filteredJargon.length === 0 ? (
-            <div className="text-center py-10 bg-white rounded-3xl border border-slate-200 p-6 space-y-2">
+            <div className="text-center py-12 bg-white rounded-3xl border border-slate-200 p-6 space-y-2">
               <BookOpen className="w-8 h-8 text-slate-300 mx-auto" />
               <p className="text-sm font-bold text-slate-700">কোনো শব্দ খুঁজে পাওয়া যায়নি</p>
               <p className="text-xs text-slate-400">অন্য শব্দ দিয়ে অনুসন্ধান করুন</p>
@@ -226,12 +220,12 @@ export function Step7GlossaryAndFAQ() {
               {filteredJargon.map((item) => (
                 <div
                   key={item.id}
-                  className="bg-white p-5 rounded-3xl border border-slate-200/90 shadow-2xs space-y-3 hover:border-indigo-300 transition-all"
+                  className="bg-white p-5 sm:p-6 rounded-3xl border border-slate-200/80 shadow-xs space-y-3.5 hover:border-indigo-300 transition-all"
                 >
                   <div className="flex items-start justify-between gap-3">
                     <div>
                       <div className="flex items-center gap-2">
-                        <span className="text-[10px] font-extrabold px-2 py-0.5 rounded-md bg-indigo-50 text-indigo-700 border border-indigo-100 uppercase">
+                        <span className="text-[10px] font-black px-2.5 py-0.5 rounded-md bg-indigo-50 text-indigo-700 border border-indigo-100 uppercase">
                           {item.category === 'metric'
                             ? 'মেট্রিক'
                             : item.category === 'budget'
@@ -241,7 +235,7 @@ export function Step7GlossaryAndFAQ() {
                             : 'কৌশল'}
                         </span>
                       </div>
-                      <h3 className="font-black text-slate-900 text-base sm:text-lg mt-1">{item.term}</h3>
+                      <h3 className="font-black text-slate-900 text-lg mt-1">{item.term}</h3>
                       <p className="text-xs font-bold text-emerald-800 flex items-center gap-1 mt-0.5">
                         <Compass className="w-3.5 h-3.5 text-emerald-600" />
                         <span>{item.banglaTitle}</span>
@@ -251,7 +245,7 @@ export function Step7GlossaryAndFAQ() {
                     <button
                       type="button"
                       onClick={() => openJargonModal(item.id)}
-                      className="text-[11px] font-bold text-indigo-600 hover:text-indigo-800 bg-indigo-50/80 px-2.5 py-1 rounded-lg border border-indigo-100 flex-shrink-0 flex items-center gap-1"
+                      className="text-xs font-black text-indigo-600 hover:text-indigo-800 bg-indigo-50 px-3 py-1.5 rounded-xl border border-indigo-100 flex-shrink-0 flex items-center gap-1 active:scale-95 transition-all"
                       title="পপআপে বিস্তারিত দেখুন"
                     >
                       <span>বিস্তারিত</span>
@@ -259,17 +253,17 @@ export function Step7GlossaryAndFAQ() {
                   </div>
 
                   {/* One-sentence meaning */}
-                  <div className="bg-slate-50 p-3 rounded-2xl border border-slate-100 text-xs sm:text-sm text-slate-800 leading-relaxed font-medium">
+                  <div className="bg-slate-50/80 p-3.5 rounded-2xl border border-slate-100 text-xs sm:text-sm text-slate-800 leading-relaxed font-semibold">
                     {item.shortMeaning}
                   </div>
 
                   {/* Detailed Explanation */}
-                  <p className="text-xs text-slate-600 leading-relaxed pl-1">
+                  <p className="text-xs sm:text-sm text-slate-600 leading-relaxed pl-1 font-medium">
                     {item.plainExplanation}
                   </p>
 
                   {/* Local BD Example */}
-                  <div className="bg-amber-50/70 border border-amber-200/70 p-3 rounded-2xl text-xs text-amber-950 leading-relaxed flex items-start gap-2.5">
+                  <div className="bg-amber-50/80 border border-amber-200/80 p-3.5 rounded-2xl text-xs text-amber-950 leading-relaxed flex items-start gap-2.5">
                     <Lightbulb className="w-4 h-4 text-amber-500 flex-shrink-0 mt-0.5" />
                     <div>
                       <strong className="text-amber-900 font-bold">দৈনন্দিন উদাহরণ: </strong>
@@ -278,7 +272,7 @@ export function Step7GlossaryAndFAQ() {
                   </div>
 
                   {item.proTip && (
-                    <div className="text-xs text-indigo-950 bg-indigo-50/60 p-3 rounded-2xl border border-indigo-100/80 flex items-start gap-2">
+                    <div className="text-xs text-indigo-950 bg-indigo-50/70 p-3.5 rounded-2xl border border-indigo-100/80 flex items-start gap-2.5">
                       <Sparkles className="w-4 h-4 text-indigo-600 flex-shrink-0 mt-0.5" />
                       <div>
                         <strong className="text-indigo-900 font-bold">গুরু পরামর্শ: </strong>
@@ -294,7 +288,7 @@ export function Step7GlossaryAndFAQ() {
       )}
 
       {/* ========================================================= */}
-      {/* TAB 2: Grouped FAQs (প্রশ্নোত্তর ও পরের করণীয়)           */}
+      {/* TAB 2: Grouped FAQs */}
       {/* ========================================================= */}
       {activeTab === 'faq' && (
         <div className="space-y-4 animate-slide-up">
@@ -307,13 +301,13 @@ export function Step7GlossaryAndFAQ() {
                   key={topic.id}
                   type="button"
                   onClick={() => setSelectedFaqTopic(isSelected ? 'all' : topic.id)}
-                  className={`p-3 rounded-2xl text-xs font-bold transition-all border flex items-center gap-2 text-left ${
+                  className={`p-3.5 rounded-2xl text-xs font-bold transition-all border flex items-center gap-2 text-left active:scale-95 ${
                     isSelected
                       ? 'bg-slate-900 text-white border-slate-900 shadow-sm'
-                      : 'bg-white text-slate-700 border-slate-200 hover:bg-slate-50'
+                      : 'bg-white text-slate-700 border-slate-200/80 hover:bg-slate-50'
                   }`}
                 >
-                  <div className={`p-1.5 rounded-lg ${isSelected ? 'bg-slate-800 text-indigo-300' : 'bg-slate-100 text-slate-600'}`}>
+                  <div className={`p-1.5 rounded-xl ${isSelected ? 'bg-slate-800 text-indigo-300' : 'bg-slate-100 text-slate-600'}`}>
                     {getTopicIcon(topic.iconName)}
                   </div>
                   <span className="truncate">{topic.label}</span>
@@ -330,22 +324,22 @@ export function Step7GlossaryAndFAQ() {
               return (
                 <div
                   key={faq.id}
-                  className="bg-white rounded-3xl border border-slate-200/90 shadow-2xs overflow-hidden transition-all hover:border-indigo-200"
+                  className="bg-white rounded-3xl border border-slate-200/80 shadow-xs overflow-hidden transition-all hover:border-indigo-200"
                 >
                   <button
                     type="button"
                     onClick={() => toggleFaq(faq.id)}
-                    className="w-full p-4 sm:p-5 text-left flex items-start justify-between gap-3 hover:bg-slate-50/70 transition-colors"
+                    className="w-full p-5 text-left flex items-start justify-between gap-3 hover:bg-slate-50/70 transition-colors"
                   >
                     <div className="flex items-start gap-3">
-                      <div className="w-8 h-8 rounded-xl bg-indigo-50 text-indigo-700 flex items-center justify-center flex-shrink-0 mt-0.5 border border-indigo-100">
+                      <div className="w-9 h-9 rounded-2xl bg-indigo-50 text-indigo-700 flex items-center justify-center flex-shrink-0 mt-0.5 border border-indigo-100 font-bold">
                         <HelpCircle className="w-4 h-4" />
                       </div>
                       <div>
-                        <h3 className="font-bold text-slate-900 text-sm sm:text-base leading-snug">
+                        <h3 className="font-black text-slate-900 text-sm sm:text-base leading-snug">
                           {faq.question}
                         </h3>
-                        <p className="text-xs text-slate-500 mt-1 leading-relaxed">
+                        <p className="text-xs text-slate-500 mt-1 leading-relaxed font-medium">
                           {faq.shortAnswer}
                         </p>
                       </div>
@@ -359,20 +353,20 @@ export function Step7GlossaryAndFAQ() {
                   {isExpanded && (
                     <div className="px-5 pb-5 pt-2 border-t border-slate-100 space-y-4 bg-slate-50/40 text-xs sm:text-sm">
                       {/* Detailed Bullet points */}
-                      <div className="space-y-2 text-slate-700 leading-relaxed bg-white p-4 rounded-2xl border border-slate-100">
+                      <div className="space-y-2 text-slate-700 leading-relaxed bg-white p-4 rounded-2xl border border-slate-100 font-medium">
                         {faq.fullAnswer.map((ans, idx) => (
-                          <div key={idx} className="flex items-start gap-2">
+                          <div key={idx} className="flex items-start gap-2.5">
                             <span className="w-1.5 h-1.5 rounded-full bg-indigo-500 mt-2 flex-shrink-0" />
                             <p className="leading-relaxed">{ans}</p>
                           </div>
                         ))}
                       </div>
 
-                      {/* Highlighted "পরের করণীয়" Box */}
-                      <div className="bg-emerald-50 border border-emerald-200/80 p-3.5 rounded-2xl text-emerald-950 text-xs flex items-start gap-2.5 shadow-2xs">
+                      {/* Highlighted Next Action Box */}
+                      <div className="bg-emerald-50 border border-emerald-200/80 p-4 rounded-2xl text-emerald-950 text-xs flex items-start gap-2.5 shadow-2xs">
                         <CheckCircle2 className="w-4 h-4 text-emerald-600 flex-shrink-0 mt-0.5" />
                         <div className="space-y-0.5">
-                          <strong className="text-emerald-900 font-extrabold text-xs uppercase tracking-wide">
+                          <strong className="text-emerald-900 font-black text-xs uppercase tracking-wide">
                             পরের করণীয়:
                           </strong>
                           <p className="leading-relaxed font-semibold text-emerald-950">
@@ -390,19 +384,18 @@ export function Step7GlossaryAndFAQ() {
       )}
 
       {/* ========================================================= */}
-      {/* TAB 3: "আমার সমস্যা কী?" Troubleshooting Wizard            */}
+      {/* TAB 3: Troubleshooting Wizard */}
       {/* ========================================================= */}
       {activeTab === 'wizard' && (
         <div className="space-y-5 animate-slide-up">
-          {/* Step 1: Symptom Selector */}
           {!selectedSymptomId ? (
             <div className="space-y-3">
-              <div className="bg-amber-50/80 border border-amber-200 p-4 rounded-3xl text-amber-950 space-y-1">
+              <div className="bg-amber-50/80 border border-amber-200/80 p-5 rounded-3xl text-amber-950 space-y-1">
                 <div className="flex items-center gap-2 font-black text-sm text-amber-900">
                   <Wrench className="w-4 h-4 text-amber-600" />
                   <span>তাত্ক্ষণিক সমস্যা নির্ণয় ও প্রতিকার</span>
                 </div>
-                <p className="text-xs text-amber-800 leading-relaxed">
+                <p className="text-xs text-amber-900 leading-relaxed font-medium">
                   আপনার বিজ্ঞাপনে ঠিক কী সমস্যা হচ্ছে তা নিচের তালিকা থেকে সিলেক্ট করুন। বিজ্ঞাপন গুরু আপনাকে আসল কারণ ও সমাধানের পথ দেখাবে:
                 </p>
               </div>
@@ -416,16 +409,16 @@ export function Step7GlossaryAndFAQ() {
                       setSelectedSymptomId(sym.id);
                       setSelectedOptionByQuestion({});
                     }}
-                    className="bg-white p-4 sm:p-5 rounded-3xl border border-slate-200 hover:border-amber-400 hover:shadow-md transition-all text-left flex items-start gap-3.5 group active:scale-[0.99]"
+                    className="bg-white p-5 rounded-3xl border border-slate-200/80 hover:border-amber-400 hover:shadow-md transition-all text-left flex items-start gap-4 group active:scale-[0.99]"
                   >
-                    <div className="w-10 h-10 rounded-2xl bg-slate-50 border border-slate-200 flex items-center justify-center flex-shrink-0 group-hover:bg-amber-50 group-hover:border-amber-200 transition-colors">
+                    <div className="w-11 h-11 rounded-2xl bg-slate-50 border border-slate-200 flex items-center justify-center flex-shrink-0 group-hover:bg-amber-50 group-hover:border-amber-200 transition-colors">
                       {getSymptomIcon(sym.iconName)}
                     </div>
                     <div className="flex-1">
-                      <h3 className="font-extrabold text-slate-900 text-sm sm:text-base group-hover:text-amber-900 transition-colors">
+                      <h3 className="font-black text-slate-900 text-sm sm:text-base group-hover:text-amber-900 transition-colors">
                         {sym.title}
                       </h3>
-                      <p className="text-xs text-slate-500 mt-1 leading-relaxed">
+                      <p className="text-xs text-slate-500 mt-1 leading-relaxed font-medium">
                         {sym.shortDescription}
                       </p>
                     </div>
@@ -437,16 +430,15 @@ export function Step7GlossaryAndFAQ() {
               </div>
             </div>
           ) : (
-            /* Step 2 & 3: Follow-up Questions & Resolution */
             <div className="space-y-4">
               {/* Back to Symptom Picker Header */}
-              <div className="bg-white p-4 rounded-3xl border border-slate-200 flex items-center justify-between gap-3 shadow-2xs">
-                <div className="flex items-center gap-2.5">
-                  <div className="w-8 h-8 rounded-xl bg-amber-100 flex items-center justify-center flex-shrink-0">
+              <div className="bg-white p-4 rounded-3xl border border-slate-200/80 flex items-center justify-between gap-3 shadow-2xs">
+                <div className="flex items-center gap-3">
+                  <div className="w-9 h-9 rounded-2xl bg-amber-100 flex items-center justify-center flex-shrink-0">
                     {activeSymptom && getSymptomIcon(activeSymptom.iconName)}
                   </div>
                   <div>
-                    <span className="text-[10px] font-bold text-amber-800 uppercase tracking-wider">
+                    <span className="text-[10px] font-black text-amber-800 uppercase tracking-wider">
                       সমস্যা নির্বাচন করা হয়েছে
                     </span>
                     <h3 className="font-black text-slate-900 text-xs sm:text-sm line-clamp-1">
@@ -461,7 +453,7 @@ export function Step7GlossaryAndFAQ() {
                     setSelectedSymptomId(null);
                     setSelectedOptionByQuestion({});
                   }}
-                  className="px-3 py-1.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs transition-colors flex items-center gap-1 flex-shrink-0"
+                  className="px-3.5 py-2 rounded-2xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs transition-all flex items-center gap-1.5 flex-shrink-0 active:scale-95"
                 >
                   <RotateCcw className="w-3.5 h-3.5" />
                   <span>অন্য সমস্যা</span>
@@ -474,12 +466,12 @@ export function Step7GlossaryAndFAQ() {
                 const activeOption = q.options.find((opt) => opt.id === selectedOptId);
 
                 return (
-                  <div key={q.id} className="space-y-3 bg-white p-5 rounded-3xl border border-slate-200 shadow-2xs">
+                  <div key={q.id} className="space-y-3 bg-white p-5 sm:p-6 rounded-3xl border border-slate-200/80 shadow-2xs">
                     <div className="space-y-1">
-                      <span className="text-[10px] font-extrabold uppercase tracking-wider text-indigo-600 bg-indigo-50 px-2 py-0.5 rounded-md">
+                      <span className="text-[10px] font-black uppercase tracking-wider text-indigo-600 bg-indigo-50 px-2.5 py-0.5 rounded-md">
                         ডায়াগনস্টিক প্রশ্ন
                       </span>
-                      <h4 className="font-extrabold text-slate-900 text-sm sm:text-base pt-1">
+                      <h4 className="font-black text-slate-900 text-sm sm:text-base pt-1">
                         {q.question}
                       </h4>
                     </div>
@@ -498,9 +490,9 @@ export function Step7GlossaryAndFAQ() {
                                 [q.id]: opt.id,
                               }))
                             }
-                            className={`w-full p-3.5 rounded-2xl text-left text-xs sm:text-sm font-semibold transition-all border flex items-start justify-between gap-3 ${
+                            className={`w-full p-4 rounded-2xl text-left text-xs sm:text-sm font-semibold transition-all border flex items-start justify-between gap-3 active:scale-[0.99] ${
                               isSelected
-                                ? 'bg-indigo-50/90 border-indigo-500 text-indigo-950 ring-2 ring-indigo-500/20 shadow-sm'
+                                ? 'bg-indigo-50/90 border-indigo-500 text-indigo-950 ring-2 ring-indigo-500/20 shadow-xs'
                                 : 'bg-slate-50/70 hover:bg-slate-100/80 border-slate-200 text-slate-700'
                             }`}
                           >
@@ -517,8 +509,8 @@ export function Step7GlossaryAndFAQ() {
                     {activeOption && (
                       <div className="mt-4 pt-4 border-t border-slate-100 space-y-3.5 animate-slide-up">
                         {/* Likely Cause */}
-                        <div className="bg-rose-50 border border-rose-200 p-3.5 rounded-2xl text-xs space-y-1">
-                          <div className="flex items-center gap-1.5 font-bold text-rose-900">
+                        <div className="bg-rose-50 border border-rose-200 p-4 rounded-2xl text-xs space-y-1">
+                          <div className="flex items-center gap-1.5 font-black text-rose-900">
                             <AlertTriangle className="w-4 h-4 text-rose-600" />
                             <span>সম্ভাব্য আসল কারণ:</span>
                           </div>
@@ -528,19 +520,19 @@ export function Step7GlossaryAndFAQ() {
                         </div>
 
                         {/* Step-by-Step Fix Steps */}
-                        <div className="bg-slate-900 text-white p-4 sm:p-5 rounded-3xl space-y-3">
+                        <div className="bg-slate-900 text-white p-5 rounded-3xl space-y-3">
                           <div className="flex items-center gap-2">
                             <div className="w-6 h-6 rounded-lg bg-emerald-500 text-slate-950 flex items-center justify-center font-bold text-xs">
                               🛠️
                             </div>
-                            <h5 className="font-bold text-sm text-emerald-400">
+                            <h5 className="font-black text-sm text-emerald-400">
                               সমাধানের করণীয় পদক্ষেপ:
                             </h5>
                           </div>
 
-                          <div className="space-y-2 pl-1">
+                          <div className="space-y-2.5 pl-1">
                             {activeOption.fixSteps.map((step, sIdx) => (
-                              <div key={sIdx} className="flex items-start gap-2.5 text-xs text-slate-200">
+                              <div key={sIdx} className="flex items-start gap-2.5 text-xs text-slate-200 font-medium">
                                 <span className="w-5 h-5 rounded-full bg-slate-800 text-emerald-400 flex items-center justify-center font-bold text-[11px] flex-shrink-0 mt-0.5 border border-slate-700">
                                   {sIdx + 1}
                                 </span>
@@ -552,7 +544,7 @@ export function Step7GlossaryAndFAQ() {
 
                         {/* Pro Tip */}
                         {activeOption.proTip && (
-                          <div className="bg-indigo-50 border border-indigo-200 p-3 rounded-2xl text-xs text-indigo-950 flex items-start gap-2">
+                          <div className="bg-indigo-50 border border-indigo-200 p-3.5 rounded-2xl text-xs text-indigo-950 flex items-start gap-2.5 font-medium">
                             <Lightbulb className="w-4 h-4 text-indigo-600 flex-shrink-0 mt-0.5" />
                             <div>
                               <strong className="text-indigo-900">পরামর্শ: </strong>
@@ -575,7 +567,7 @@ export function Step7GlossaryAndFAQ() {
         <button
           type="button"
           onClick={() => setCurrentStep(6)}
-          className="flex-1 py-3.5 px-4 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold rounded-2xl transition-all flex items-center justify-center gap-2 active:scale-98 text-sm"
+          className="flex-1 py-4 px-4 bg-white hover:bg-slate-50 text-slate-700 font-extrabold rounded-2xl border border-slate-200 shadow-xs transition-all flex items-center justify-center gap-2 active:scale-95 text-sm"
         >
           <ArrowLeft className="w-4 h-4" />
           <span>রেজাল্ট ডক্টরে যান</span>
@@ -587,7 +579,7 @@ export function Step7GlossaryAndFAQ() {
             setCurrentStep(1);
             window.scrollTo({ top: 0, behavior: 'smooth' });
           }}
-          className="flex-[2] py-3.5 px-6 bg-slate-900 hover:bg-slate-800 text-white font-bold rounded-2xl transition-all shadow-md flex items-center justify-center gap-2 active:scale-98 text-sm"
+          className="flex-[2] py-4 px-6 bg-slate-900 hover:bg-slate-800 text-white font-extrabold rounded-2xl transition-all shadow-md flex items-center justify-center gap-2 active:scale-95 text-sm"
         >
           <RotateCcw className="w-4 h-4" />
           <span>শুরু থেকে নতুন প্ল্যান বানান</span>
@@ -596,4 +588,3 @@ export function Step7GlossaryAndFAQ() {
     </div>
   );
 }
-

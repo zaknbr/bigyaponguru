@@ -5,9 +5,11 @@ import { useApp } from '@/context/AppContext';
 import {
   Briefcase,
   PieChart,
+  CheckSquare,
   Wand2,
+  Calendar,
   Activity,
-  BookOpen,
+  HelpCircle,
 } from 'lucide-react';
 
 export function BottomNav() {
@@ -15,15 +17,17 @@ export function BottomNav() {
 
   const NAV_ITEMS = [
     { step: 1, label: 'প্রোফাইল', icon: Briefcase },
-    { step: 2, label: 'অ্যাড প্ল্যান', icon: PieChart },
+    { step: 2, label: 'প্ল্যান', icon: PieChart },
+    { step: 3, label: 'সেটআপ', icon: CheckSquare },
     { step: 4, label: 'কপি কিট', icon: Wand2 },
+    { step: 5, label: 'লঞ্চ', icon: Calendar },
     { step: 6, label: 'ডক্টর', icon: Activity },
-    { step: 7, label: 'শব্দকোষ', icon: BookOpen },
+    { step: 7, label: 'শব্দকোষ', icon: HelpCircle },
   ];
 
   return (
-    <nav className="fixed bottom-0 left-0 right-0 z-40 bg-white/95 backdrop-blur-lg border-t border-slate-200/80 sm:hidden shadow-lg pb-safe">
-      <div className="grid grid-cols-5 h-16">
+    <nav className="fixed bottom-3 left-3 right-3 z-40 sm:hidden">
+      <div className="bg-slate-900/90 backdrop-blur-2xl border border-slate-800/80 shadow-2xl rounded-2xl px-1.5 py-1.5 flex items-center justify-between">
         {NAV_ITEMS.map((item) => {
           const Icon = item.icon;
           const isActive = currentStep === item.step;
@@ -35,18 +39,14 @@ export function BottomNav() {
                 setCurrentStep(item.step);
                 window.scrollTo({ top: 0, behavior: 'smooth' });
               }}
-              className={`flex flex-col items-center justify-center gap-1 transition-colors ${
-                isActive ? 'text-emerald-600' : 'text-slate-500 hover:text-slate-800'
+              className={`flex-1 flex flex-col items-center justify-center py-1.5 rounded-xl transition-all active:scale-90 ${
+                isActive
+                  ? 'bg-emerald-500/20 text-emerald-400 font-bold'
+                  : 'text-slate-400 hover:text-white'
               }`}
             >
-              <div
-                className={`p-1 rounded-xl transition-all ${
-                  isActive ? 'bg-emerald-50 text-emerald-600' : ''
-                }`}
-              >
-                <Icon className="w-5 h-5" />
-              </div>
-              <span className={`text-[10px] font-bold ${isActive ? 'text-emerald-700' : ''}`}>
+              <Icon className={`w-4 h-4 transition-transform ${isActive ? 'scale-110 text-emerald-400' : ''}`} />
+              <span className={`text-[9px] mt-0.5 tracking-tight ${isActive ? 'text-emerald-300 font-black' : 'text-slate-400'}`}>
                 {item.label}
               </span>
             </button>

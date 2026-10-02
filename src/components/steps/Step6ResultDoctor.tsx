@@ -36,40 +36,40 @@ export function Step6ResultDoctor() {
 
   return (
     <div className="space-y-6 animate-fade-in pb-12">
-      {/* Header Banner */}
-      <div className="bg-gradient-to-r from-blue-900 via-indigo-900 to-slate-900 text-white p-6 rounded-3xl shadow-xl space-y-3">
-        <div className="flex items-center gap-2">
-          <div className="w-8 h-8 rounded-lg bg-blue-500 text-white flex items-center justify-center">
+      {/* 2026 Executive Header Banner */}
+      <div className="bg-gradient-to-br from-blue-950 via-slate-900 to-indigo-950 text-white p-6 sm:p-7 rounded-3xl shadow-xl space-y-4 border border-blue-900/50">
+        <div className="flex items-center gap-3">
+          <div className="w-10 h-10 rounded-2xl bg-blue-500 text-white flex items-center justify-center font-black shadow-md shadow-blue-500/30">
             <Activity className="w-5 h-5" />
           </div>
-          <h2 className="text-xl sm:text-2xl font-bold">অ্যাড রেজাল্ট ডক্টর (Ad Doctor)</h2>
+          <div>
+            <h2 className="text-xl sm:text-2xl font-black">অ্যাড রেজাল্ট ডক্টর (Ad Doctor)</h2>
+            <p className="text-xs text-blue-200">চলমান বিজ্ঞাপনের আসল পারফরম্যান্স বিশ্লেষণ ও ট্রাফিক-লাইট রোগ নির্ণয়</p>
+          </div>
         </div>
-        <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
-          আপনার চলমান বিজ্ঞাপনের খরচ ও ফলাফল নিচে লিখুন। রেজাল্ট ডক্টর ট্রাফিক-লাইট সংকেতের মাধ্যমে জানিয়ে দেবে আপনার অ্যাড লাভজনক নাকি পরিবর্তন প্রয়োজন।
-        </p>
 
         {/* Preset quick test buttons */}
-        <div className="pt-1">
-          <p className="text-[11px] text-slate-400 mb-1.5 font-medium">নমুনা ডাটা দিয়ে দ্রুত পরীক্ষা করুন:</p>
-          <div className="flex flex-wrap gap-1.5">
+        <div className="pt-2 border-t border-blue-900/60">
+          <p className="text-[11px] text-slate-300 mb-2 font-bold">নমুনা ডেটা দিয়ে দ্রুত টেস্ট করে দেখুন:</p>
+          <div className="flex flex-wrap gap-2">
             <button
               type="button"
               onClick={() => loadPreset('good')}
-              className="px-2.5 py-1 rounded-lg bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-300 border border-emerald-400/30 text-[11px] font-bold"
+              className="px-3 py-1.5 rounded-xl bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-300 border border-emerald-400/30 text-xs font-bold transition-all active:scale-95"
             >
-              🟢 সফল অ্যাড টেস্ট
+              🟢 সফল লাভজনক অ্যাড
             </button>
             <button
               type="button"
               onClick={() => loadPreset('low_ctr')}
-              className="px-2.5 py-1 rounded-lg bg-yellow-500/20 hover:bg-yellow-500/30 text-yellow-300 border border-yellow-400/30 text-[11px] font-bold"
+              className="px-3 py-1.5 rounded-xl bg-yellow-500/20 hover:bg-yellow-500/30 text-yellow-300 border border-yellow-400/30 text-xs font-bold transition-all active:scale-95"
             >
-              🟡 কম ক্লিক সমস্যা
+              🟡 কম ক্লিক সমস্যা (Low CTR)
             </button>
             <button
               type="button"
               onClick={() => loadPreset('no_conversions')}
-              className="px-2.5 py-1 rounded-lg bg-rose-500/20 hover:bg-rose-500/30 text-rose-300 border border-rose-400/30 text-[11px] font-bold"
+              className="px-3 py-1.5 rounded-xl bg-rose-500/20 hover:bg-rose-500/30 text-rose-300 border border-rose-400/30 text-xs font-bold transition-all active:scale-95"
             >
               🔴 মেসেজ না পাওয়ার সমস্যা
             </button>
@@ -78,26 +78,26 @@ export function Step6ResultDoctor() {
       </div>
 
       {/* Input Metrics Grid */}
-      <div className="bg-white p-5 rounded-3xl border border-slate-200 shadow-sm space-y-4">
-        <h3 className="font-bold text-slate-900 text-sm sm:text-base flex items-center justify-between">
+      <div className="bg-white p-6 rounded-3xl border border-slate-200/80 shadow-xs space-y-4">
+        <h3 className="font-black text-slate-900 text-sm sm:text-base flex items-center justify-between">
           <span>আপনার বিজ্ঞাপনের আসল সংখ্যাগুলো লিখুন:</span>
-          <span className="text-xs font-normal text-slate-500">(Ads Manager থেকে দেখে নিন)</span>
+          <span className="text-xs font-semibold text-slate-400">(Ads Manager থেকে দেখে নিন)</span>
         </h3>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           {/* Spend */}
           <div className="space-y-1.5">
             <label className="text-xs font-bold text-slate-700 block">
               ১. মোট কত টাকা খরচ হয়েছে (Spend):
             </label>
             <div className="relative">
-              <span className="absolute left-3.5 top-2.5 text-slate-400 font-bold">৳</span>
+              <span className="absolute left-4 top-3 text-slate-400 font-black text-base">৳</span>
               <input
                 type="number"
                 value={doctorInput.spentBudget || ''}
                 onChange={(e) => setDoctorInput({ ...doctorInput, spentBudget: Number(e.target.value) })}
-                className="w-full pl-8 pr-3.5 py-2.5 rounded-xl border border-slate-300 text-sm font-bold focus:ring-2 focus:ring-blue-500 focus:outline-none"
-                placeholder="যেমন: ১৫০০"
+                className="w-full pl-9 pr-4 py-3 rounded-2xl border border-slate-200 bg-slate-50/50 focus:bg-white text-sm font-black focus:ring-2 focus:ring-blue-500 focus:outline-none transition-all"
+                placeholder="১৫০০"
               />
             </div>
           </div>
@@ -114,8 +114,8 @@ export function Step6ResultDoctor() {
               type="number"
               value={doctorInput.reach || ''}
               onChange={(e) => setDoctorInput({ ...doctorInput, reach: Number(e.target.value) })}
-              className="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-sm font-bold focus:ring-2 focus:ring-blue-500 focus:outline-none"
-              placeholder="যেমন: ৮৫০০"
+              className="w-full px-4 py-3 rounded-2xl border border-slate-200 bg-slate-50/50 focus:bg-white text-sm font-black focus:ring-2 focus:ring-blue-500 focus:outline-none transition-all"
+              placeholder="৮৫০০"
             />
           </div>
 
@@ -131,8 +131,8 @@ export function Step6ResultDoctor() {
               type="number"
               value={doctorInput.clicks || ''}
               onChange={(e) => setDoctorInput({ ...doctorInput, clicks: Number(e.target.value) })}
-              className="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-sm font-bold focus:ring-2 focus:ring-blue-500 focus:outline-none"
-              placeholder="যেমন: ২২০"
+              className="w-full px-4 py-3 rounded-2xl border border-slate-200 bg-slate-50/50 focus:bg-white text-sm font-black focus:ring-2 focus:ring-blue-500 focus:outline-none transition-all"
+              placeholder="২২০"
             />
           </div>
 
@@ -147,8 +147,8 @@ export function Step6ResultDoctor() {
               onChange={(e) =>
                 setDoctorInput({ ...doctorInput, conversions: Number(e.target.value) })
               }
-              className="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-sm font-bold focus:ring-2 focus:ring-blue-500 focus:outline-none"
-              placeholder="যেমন: ১৮"
+              className="w-full px-4 py-3 rounded-2xl border border-slate-200 bg-slate-50/50 focus:bg-white text-sm font-black focus:ring-2 focus:ring-blue-500 focus:outline-none transition-all"
+              placeholder="১৮"
             />
           </div>
         </div>
@@ -156,17 +156,17 @@ export function Step6ResultDoctor() {
 
       {/* Traffic-Light Verdict Result Card */}
       <div
-        className={`p-6 rounded-3xl border-2 shadow-lg transition-all space-y-4 ${
+        className={`p-6 sm:p-7 rounded-3xl border-2 shadow-lg transition-all space-y-5 ${
           verdict.status === 'green'
-            ? 'bg-emerald-50/80 border-emerald-300 text-emerald-950'
+            ? 'bg-emerald-50/90 border-emerald-300 text-emerald-950'
             : verdict.status === 'yellow'
-            ? 'bg-amber-50/80 border-amber-300 text-amber-950'
-            : 'bg-rose-50/80 border-rose-300 text-rose-950'
+            ? 'bg-amber-50/90 border-amber-300 text-amber-950'
+            : 'bg-rose-50/90 border-rose-300 text-rose-950'
         }`}
       >
         {/* Verdict Header */}
         <div className="flex items-start justify-between gap-3 border-b pb-4 border-current/10">
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-3.5">
             <div
               className={`w-12 h-12 rounded-2xl flex items-center justify-center flex-shrink-0 text-white shadow-md ${
                 verdict.status === 'green'
@@ -185,34 +185,34 @@ export function Step6ResultDoctor() {
               )}
             </div>
             <div>
-              <span className="text-[11px] font-extrabold uppercase tracking-wider px-2 py-0.5 rounded-full bg-white/80 border border-current/20">
+              <span className="text-[11px] font-black uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-white/90 border border-current/20">
                 {verdict.status === 'green'
                   ? '🟢 সবুজ সংকেত (সব ঠিক আছে)'
                   : verdict.status === 'yellow'
                   ? '🟡 হলুদ সংকেত (সতর্কতা)'
                   : '🔴 লাল সংকেত (জরুরি পদক্ষেপ)'}
               </span>
-              <h3 className="text-base sm:text-lg font-extrabold mt-1 leading-snug">
+              <h3 className="text-base sm:text-xl font-black mt-1.5 leading-snug">
                 {verdict.headline}
               </h3>
             </div>
           </div>
         </div>
 
-        <p className="text-xs sm:text-sm leading-relaxed">{verdict.summary}</p>
+        <p className="text-xs sm:text-sm leading-relaxed font-medium">{verdict.summary}</p>
 
         {/* Live Metrics Breakdown */}
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 pt-1">
-          <div className="bg-white p-3 rounded-2xl border border-current/10 shadow-2xs">
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-1">
+          <div className="bg-white p-3.5 rounded-2xl border border-current/10 shadow-2xs">
             <div className="flex items-center justify-between">
-              <span className="text-[11px] text-slate-500">CTR (ক্লিক হার)</span>
+              <span className="text-[11px] text-slate-500 font-bold">CTR (ক্লিক হার)</span>
               <JargonBadge id="ctr" label="?" />
             </div>
-            <p className="text-base font-bold text-slate-900 mt-1">
+            <p className="text-lg font-black text-slate-900 mt-1">
               {formatDecimal(verdict.metrics.ctr, 1, useBengaliDigits)}%
             </p>
             <span
-              className={`text-[10px] font-bold px-1.5 py-0.5 rounded ${
+              className={`text-[10px] font-black px-2 py-0.5 rounded-full mt-1 inline-block ${
                 verdict.benchmarks.ctrStatus === 'good'
                   ? 'bg-emerald-100 text-emerald-800'
                   : verdict.benchmarks.ctrStatus === 'average'
@@ -228,16 +228,16 @@ export function Step6ResultDoctor() {
             </span>
           </div>
 
-          <div className="bg-white p-3 rounded-2xl border border-current/10 shadow-2xs">
+          <div className="bg-white p-3.5 rounded-2xl border border-current/10 shadow-2xs">
             <div className="flex items-center justify-between">
-              <span className="text-[11px] text-slate-500">CPM (১০০০ রিচ)</span>
+              <span className="text-[11px] text-slate-500 font-bold">CPM (১০০০ রিচ)</span>
               <JargonBadge id="cpm" label="?" />
             </div>
-            <p className="text-base font-bold text-slate-900 mt-1">
+            <p className="text-lg font-black text-slate-900 mt-1">
               {formatBDT(verdict.metrics.cpm, useBengaliDigits)}
             </p>
             <span
-              className={`text-[10px] font-bold px-1.5 py-0.5 rounded ${
+              className={`text-[10px] font-black px-2 py-0.5 rounded-full mt-1 inline-block ${
                 verdict.benchmarks.cpmStatus === 'good'
                   ? 'bg-emerald-100 text-emerald-800'
                   : verdict.benchmarks.cpmStatus === 'average'
@@ -246,28 +246,28 @@ export function Step6ResultDoctor() {
               }`}
             >
               {verdict.benchmarks.cpmStatus === 'good'
-                ? 'কম খরচ (সাশ্রয়ী)'
+                ? 'সাশ্রয়ী খরচ'
                 : verdict.benchmarks.cpmStatus === 'average'
                 ? 'স্বাভাবিক'
-                : 'অতিরিক্ত বেশি'}
+                : 'বেশি খরচ'}
             </span>
           </div>
 
-          <div className="bg-white p-3 rounded-2xl border border-current/10 shadow-2xs">
-            <span className="text-[11px] text-slate-500">প্রতি ক্লিকে খরচ (CPC)</span>
-            <p className="text-base font-bold text-slate-900 mt-1">
+          <div className="bg-white p-3.5 rounded-2xl border border-current/10 shadow-2xs">
+            <span className="text-[11px] text-slate-500 font-bold block">প্রতি ক্লিকে খরচ (CPC)</span>
+            <p className="text-lg font-black text-slate-900 mt-1">
               {formatBDT(verdict.metrics.cpc, useBengaliDigits)}
             </p>
-            <span className="text-[10px] text-slate-500">গড়ে প্রতি ক্লিক</span>
+            <span className="text-[10px] text-slate-400 font-bold mt-1 inline-block">গড়ে প্রতি ক্লিক</span>
           </div>
 
-          <div className="bg-white p-3 rounded-2xl border border-current/10 shadow-2xs">
-            <span className="text-[11px] text-slate-500">প্রতি মেসেজে খরচ</span>
-            <p className="text-base font-bold text-slate-900 mt-1">
+          <div className="bg-white p-3.5 rounded-2xl border border-current/10 shadow-2xs">
+            <span className="text-[11px] text-slate-500 font-bold block">প্রতি মেসেজে খরচ</span>
+            <p className="text-lg font-black text-slate-900 mt-1">
               {formatBDT(verdict.metrics.costPerConversion, useBengaliDigits)}
             </p>
             <span
-              className={`text-[10px] font-bold px-1.5 py-0.5 rounded ${
+              className={`text-[10px] font-black px-2 py-0.5 rounded-full mt-1 inline-block ${
                 verdict.benchmarks.costStatus === 'good'
                   ? 'bg-emerald-100 text-emerald-800'
                   : verdict.benchmarks.costStatus === 'average'
@@ -286,33 +286,33 @@ export function Step6ResultDoctor() {
 
         {/* Root-cause Diagnoses */}
         <div className="space-y-2 pt-2">
-          <h4 className="text-xs font-bold uppercase tracking-wider text-slate-700">
+          <h4 className="text-xs font-black uppercase tracking-wider text-slate-700">
             সমস্যার মূল কারণ (Root-Cause Diagnosis):
           </h4>
           {verdict.diagnoses.map((diag, i) => (
             <div
               key={i}
-              className="bg-white p-3.5 rounded-2xl border border-current/15 space-y-1 shadow-2xs"
+              className="bg-white p-4 rounded-2xl border border-current/15 space-y-1 shadow-2xs"
             >
-              <p className="font-bold text-xs sm:text-sm text-slate-900 flex items-center gap-1.5">
+              <p className="font-black text-xs sm:text-sm text-slate-900 flex items-center gap-2">
                 <Zap className="w-4 h-4 text-amber-500" />
                 {diag.problemBangla}
               </p>
-              <p className="text-xs text-slate-600 leading-relaxed">{diag.explanationBangla}</p>
+              <p className="text-xs text-slate-600 leading-relaxed font-medium">{diag.explanationBangla}</p>
             </div>
           ))}
         </div>
 
         {/* Clear Action Steps */}
-        <div className="bg-white p-4 rounded-2xl border border-current/15 space-y-2 shadow-2xs">
-          <h4 className="text-xs font-bold text-slate-900 uppercase tracking-wider flex items-center gap-1.5">
+        <div className="bg-white p-5 rounded-2xl border border-current/15 space-y-2.5 shadow-2xs">
+          <h4 className="text-xs font-black text-slate-900 uppercase tracking-wider flex items-center gap-2">
             <Sparkles className="w-4 h-4 text-emerald-600" />
             {verdict.nextAction.title}:
           </h4>
-          <ul className="space-y-1.5 text-xs sm:text-sm text-slate-700">
+          <ul className="space-y-2 text-xs sm:text-sm text-slate-700 font-medium">
             {verdict.nextAction.actionSteps.map((step, i) => (
-              <li key={i} className="flex items-start gap-2">
-                <span className="w-1.5 h-1.5 rounded-full bg-emerald-600 mt-1.5 flex-shrink-0" />
+              <li key={i} className="flex items-start gap-2.5">
+                <span className="w-2 h-2 rounded-full bg-emerald-600 mt-1.5 flex-shrink-0" />
                 <span className="leading-relaxed">{step}</span>
               </li>
             ))}
@@ -325,16 +325,16 @@ export function Step6ResultDoctor() {
         <button
           type="button"
           onClick={() => setCurrentStep(5)}
-          className="flex-1 py-3.5 px-4 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold rounded-2xl transition-all flex items-center justify-center gap-2 active:scale-98 text-sm"
+          className="flex-1 py-4 px-4 bg-white hover:bg-slate-50 text-slate-700 font-extrabold rounded-2xl border border-slate-200 shadow-xs transition-all flex items-center justify-center gap-2 active:scale-95 text-sm"
         >
           <ArrowLeft className="w-4 h-4" />
-          <span>পেছনে যান</span>
+          <span>লঞ্চ প্ল্যানে ফিরুন</span>
         </button>
 
         <button
           type="button"
           onClick={() => setCurrentStep(7)}
-          className="flex-[2] py-3.5 px-6 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-2xl transition-all shadow-md shadow-emerald-600/20 flex items-center justify-center gap-2 active:scale-98 text-sm"
+          className="flex-[2] py-4 px-6 bg-gradient-to-r from-emerald-600 via-teal-600 to-emerald-700 hover:from-emerald-700 hover:to-teal-800 text-white font-extrabold rounded-2xl transition-all shadow-lg shadow-emerald-600/25 flex items-center justify-center gap-2 active:scale-95 text-sm"
         >
           <span>শব্দকোষ ও FAQ দেখুন</span>
           <ArrowRight className="w-4 h-4" />
