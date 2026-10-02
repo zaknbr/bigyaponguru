@@ -38,28 +38,28 @@ export function Navbar() {
   const progressPercent = Math.round((currentStep / STEPS.length) * 100);
 
   return (
-    <header className="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-slate-200/80">
+    <header className="sticky top-0 z-40 bg-white/80 backdrop-blur-2xl border-b border-white/80 shadow-sm shadow-slate-900/5">
       {/* Brand & Top Bar */}
-      <div className="max-w-3xl mx-auto px-4 py-3 flex items-center justify-between gap-3">
+      <div className="max-w-4xl mx-auto px-4 py-3 flex items-center justify-between gap-3">
         {/* Brand */}
         <div 
           onClick={() => setCurrentStep(1)}
-          className="flex items-center gap-2.5 cursor-pointer select-none"
+          className="flex items-center gap-3 cursor-pointer select-none group"
         >
-          <div className="w-8 h-8 rounded-lg bg-emerald-600 flex items-center justify-center text-white font-semibold text-sm shadow-xs flex-shrink-0">
+          <div className="w-9 h-9 rounded-2xl bg-gradient-to-tr from-emerald-600 to-teal-500 flex items-center justify-center text-white font-extrabold text-base shadow-md shadow-emerald-600/20 group-hover:scale-105 transition-transform flex-shrink-0">
             বি
           </div>
           <div>
             <div className="flex items-center gap-2">
-              <h1 className="text-base font-semibold text-slate-900 tracking-tight">
+              <h1 className="text-base sm:text-lg font-bold text-slate-900 tracking-tight">
                 বিজ্ঞাপন গুরু
               </h1>
-              <span className="text-[11px] font-medium px-2 py-0.5 rounded-full bg-slate-100 text-slate-600">
-                বাংলা গাইড
+              <span className="text-[11px] font-bold px-2.5 py-0.5 rounded-full bg-emerald-50 text-emerald-800 border border-emerald-200">
+                ২০২৬ এডিশন
               </span>
             </div>
             <p className="text-xs text-slate-500 hidden sm:block">
-              সহজ বাংলায় মেটা ও টিকটক বিজ্ঞাপনের সম্পূর্ণ নির্দেশিকা
+              বাংলাদেশের উদ্যোক্তাদের জন্য মেটা ও টিকটক অ্যাডস গাইড
             </p>
           </div>
         </div>
@@ -70,11 +70,11 @@ export function Navbar() {
           <button
             type="button"
             onClick={() => setUseBengaliDigits(!useBengaliDigits)}
-            className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-xs font-medium bg-slate-50 hover:bg-slate-100 text-slate-700 transition-colors border border-slate-200"
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold bg-white/80 hover:bg-white text-slate-700 transition-all border border-slate-200/80 shadow-xs active:scale-95"
             title="সংখ্যা রূপান্তর"
           >
             <span className="text-slate-400 text-[11px]">সংখ্যা:</span>
-            <span className={useBengaliDigits ? 'text-emerald-700 font-semibold' : 'text-slate-700'}>
+            <span className={useBengaliDigits ? 'text-emerald-700 font-extrabold' : 'text-slate-700 font-extrabold'}>
               {useBengaliDigits ? '১২৩' : '123'}
             </span>
           </button>
@@ -83,7 +83,7 @@ export function Navbar() {
           <button
             type="button"
             onClick={resetAllData}
-            className="p-1.5 text-slate-400 hover:text-rose-600 hover:bg-rose-50 rounded-lg transition-colors"
+            className="p-2 text-slate-400 hover:text-rose-600 hover:bg-rose-50 rounded-xl transition-colors border border-transparent hover:border-rose-200"
             title="সব তথ্য নতুন করে শুরু করুন"
             aria-label="Reset"
           >
@@ -92,16 +92,16 @@ export function Navbar() {
         </div>
       </div>
 
-      {/* Thin Progress Indicator */}
-      <div className="w-full bg-slate-100 h-0.5 relative overflow-hidden">
+      {/* Thin Animated Progress Bar */}
+      <div className="w-full bg-slate-100 h-1 relative overflow-hidden">
         <div
-          className="h-full bg-emerald-600 transition-all duration-300 ease-out"
+          className="h-full bg-gradient-to-r from-emerald-500 via-teal-400 to-indigo-500 transition-all duration-500 ease-out"
           style={{ width: `${progressPercent}%` }}
         />
       </div>
 
-      {/* Clean Step Navigation Tabs */}
-      <div className="max-w-3xl mx-auto px-4 overflow-x-auto scrollbar-none py-2 flex items-center gap-1.5">
+      {/* 2026 Glassmorphic Step Navigation Ribbon */}
+      <div className="max-w-4xl mx-auto px-4 overflow-x-auto scrollbar-none py-2.5 flex items-center gap-2">
         {STEPS.map((s) => {
           const isActive = currentStep === s.id;
           const isCompleted = currentStep > s.id;
@@ -114,28 +114,28 @@ export function Navbar() {
                 setCurrentStep(s.id);
                 window.scrollTo({ top: 0, behavior: 'smooth' });
               }}
-              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium whitespace-nowrap transition-colors flex-shrink-0 ${
+              className={`flex items-center gap-2 px-3.5 py-1.5 rounded-xl text-xs font-bold whitespace-nowrap transition-all flex-shrink-0 ${
                 isActive
-                  ? 'bg-slate-900 text-white'
+                  ? 'bg-slate-900 text-white shadow-md shadow-slate-900/15 scale-105'
                   : isCompleted
-                  ? 'bg-emerald-50 text-emerald-800 hover:bg-emerald-100'
-                  : 'bg-white text-slate-600 hover:bg-slate-50 border border-slate-200/60'
+                  ? 'bg-emerald-50 text-emerald-800 hover:bg-emerald-100 border border-emerald-200'
+                  : 'glass-pill text-slate-600 hover:bg-white hover:text-slate-900'
               }`}
             >
               <span
-                className={`w-4 h-4 rounded-full flex items-center justify-center text-[10px] ${
+                className={`w-4 h-4 rounded-full flex items-center justify-center text-[10px] font-extrabold ${
                   isActive
-                    ? 'bg-emerald-500 text-slate-950 font-bold'
+                    ? 'bg-emerald-400 text-slate-950'
                     : isCompleted
-                    ? 'bg-emerald-600 text-white font-bold'
-                    : 'bg-slate-100 text-slate-600'
+                    ? 'bg-emerald-600 text-white'
+                    : 'bg-slate-200 text-slate-600'
                 }`}
               >
                 {stepNumber}
               </span>
               <span>{s.shortTitle}</span>
               {s.id === 3 && (
-                <span className="text-[10px] px-1.5 py-0.2 rounded-full bg-slate-100 text-slate-600 font-medium">
+                <span className="text-[10px] px-1.5 py-0.2 rounded-full bg-slate-100 text-slate-600 font-semibold">
                   {useBengaliDigits ? toBengaliDigits(setupCompletedCount) : setupCompletedCount}/
                   {useBengaliDigits ? toBengaliDigits(setupTotalCount) : setupTotalCount}
                 </span>

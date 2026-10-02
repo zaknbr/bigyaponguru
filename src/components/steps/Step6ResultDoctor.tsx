@@ -1,240 +1,287 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import { useApp } from '@/context/AppContext';
 import { diagnoseAdResults } from '@/config/resultDoctorEngine';
-import { formatBDT, formatDecimal } from '@/utils/bengaliNumbers';
+import { formatBDT, toBengaliDigits } from '@/utils/bengaliNumbers';
 import { JargonBadge } from '@/components/JargonModal';
 import {
+  Activity,
   CheckCircle2,
   AlertTriangle,
   XCircle,
   ArrowRight,
   ArrowLeft,
+  Zap,
 } from 'lucide-react';
 
 export function Step6ResultDoctor() {
-  const { doctorInput, setDoctorInput, calculatedPlan, setCurrentStep, useBengaliDigits } = useApp();
+  const { calculatedPlan, setCurrentStep, useBengaliDigits } = useApp();
 
-  const verdict = diagnoseAdResults(doctorInput, calculatedPlan.breakEvenCPA);
+  const [inputs, setInputs] = useState({
+    spend: 1500,
+    reach: 8500,
+    clicks: 180,
+    conversations: 25,
+    sales: 4,
+    daysRunning: 3,
+  });
 
-  const loadPreset = (type: 'good' | 'low_ctr' | 'no_conversions') => {
-    if (type === 'good') {
-      setDoctorInput({ spentBudget: 1800, reach: 9500, clicks: 280, conversions: 26 });
-    } else if (type === 'low_ctr') {
-      setDoctorInput({ spentBudget: 1500, reach: 11000, clicks: 65, conversions: 5 });
-    } else if (type === 'no_conversions') {
-      setDoctorInput({ spentBudget: 1200, reach: 6000, clicks: 190, conversions: 0 });
-    }
-  };
+  const diagnosis = diagnoseAdResults(
+    {
+      spentBudget: inputs.spend,
+      reach: inputs.reach,
+      clicks: inputs.clicks,
+      conversions: inputs.sales,
+      actualSalesCount: inputs.sales,
+    },
+    calculatedPlan.breakEvenCPA
+  );
+
+  // Real-time calculated metrics
+  const cpc = inputs.clicks > 0 ? (inputs.spend / inputs.clicks).toFixed(2) : '০';
+  const ctr = inputs.reach > 0 ? ((inputs.clicks / inputs.reach) * 100).toFixed(2) : '০';
+  const convRate = inputs.conversations > 0 ? ((inputs.sales / inputs.conversations) * 100).toFixed(1) : '০';
+  const cpa = inputs.sales > 0 ? Math.round(inputs.spend / inputs.sales) : inputs.spend;
 
   return (
     <div className="space-y-6 animate-fade-in pb-12">
-      {/* Clean Header */}
-      <div className="space-y-1">
-        <h2 className="text-lg sm:text-2xl font-bold text-slate-900">অ্যাড রেজাল্ট ডক্টর</h2>
-        <p className="text-xs sm:text-sm text-slate-500">
-          আপনার বিজ্ঞাপনের আসল সংখ্যাগুলো লিখুন। ডক্টর জানিয়ে দেবে আপনার অ্যাড লাভজনক নাকি পরিবর্তন প্রয়োজন।
-        </p>
-
-        {/* Quick presets */}
-        <div className="flex items-center gap-1.5 pt-2">
-          <span className="text-xs text-slate-400">নমুনা ডেটা:</span>
-          <button
-            type="button"
-            onClick={() => loadPreset('good')}
-            className="px-2.5 py-1 rounded-md text-xs font-medium bg-slate-100 hover:bg-slate-200 text-slate-700"
-          >
-            🟢 সফল অ্যাড
-          </button>
-          <button
-            type="button"
-            onClick={() => loadPreset('low_ctr')}
-            className="px-2.5 py-1 rounded-md text-xs font-medium bg-slate-100 hover:bg-slate-200 text-slate-700"
-          >
-            🟡 কম ক্লিক
-          </button>
-          <button
-            type="button"
-            onClick={() => loadPreset('no_conversions')}
-            className="px-2.5 py-1 rounded-md text-xs font-medium bg-slate-100 hover:bg-slate-200 text-slate-700"
-          >
-            🔴 মেসেজ নেই
-          </button>
+      {/* 2026 Glassmorphic Header */}
+      <div className="glass-card p-6 rounded-3xl space-y-3 border-emerald-500/20 shadow-md">
+        <div className="flex items-center gap-2">
+          <span className="text-xs font-bold px-3 py-1 rounded-full bg-emerald-100 text-emerald-800 flex items-center gap-1.5">
+            <Activity className="w-3.5 h-3.5 text-emerald-600" />
+            স্মার্ট এআই রোগ নির্ণয় ও সমাধান
+          </span>
         </div>
+        <h2 className="text-xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
+          রেজাল্ট ডক্টর (বিজ্ঞাপন পারফরম্যান্স অ্যানালাইজার)
+        </h2>
+        <p className="text-sm text-slate-600 leading-relaxed">
+          আপনার বিজ্ঞাপনের বর্তমান ডাটা দিন—ডক্টর তাৎক্ষণিকভাবে রোগ নির্ণয় করে জানিয়ে দেবে কোথায় সমস্যা এবং কী পরিবর্তন করতে হবে।
+        </p>
       </div>
 
-      {/* Input Metrics Grid */}
-      <div className="bg-white p-5 rounded-xl border border-slate-200 space-y-4">
-        <h3 className="font-semibold text-sm text-slate-900">
-          বিজ্ঞাপনের ডেটা ইনপুট করুন:
-        </h3>
+      {/* Input Data Grid */}
+      <div className="glass-card p-6 rounded-3xl space-y-4 border-slate-200 shadow-sm">
+        <h3 className="font-bold text-base text-slate-900">বিজ্ঞাপনের বর্তমান তথ্য লিখুন:</h3>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
-          {/* Spend */}
-          <div className="space-y-1">
-            <label className="text-xs font-medium text-slate-700 block">
-              ১. মোট খরচ (Spend ৳):
-            </label>
+        <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+          <div className="space-y-1.5 bg-white p-3.5 rounded-2xl border border-slate-100">
+            <label className="text-xs font-bold text-slate-700">মোট খরচ (৳):</label>
             <input
               type="number"
-              value={doctorInput.spentBudget || ''}
-              onChange={(e) => setDoctorInput({ ...doctorInput, spentBudget: Number(e.target.value) })}
-              className="w-full px-3 py-2 rounded-lg border border-slate-200 text-sm font-semibold"
+              value={inputs.spend || ''}
+              onChange={(e) => setInputs({ ...inputs, spend: Number(e.target.value) })}
+              className="w-full px-3 py-2 rounded-xl border border-slate-200 text-sm sm:text-base font-bold text-slate-900 focus:outline-none focus:border-emerald-500"
               placeholder="১৫০০"
             />
           </div>
 
-          {/* Reach */}
-          <div className="space-y-1">
-            <div className="flex items-center justify-between">
-              <label className="text-xs font-medium text-slate-700">
-                ২. কত মানুষের কাছে পৌঁছেছে (Reach):
-              </label>
-              <JargonBadge id="reach" label="Reach" />
-            </div>
+          <div className="space-y-1.5 bg-white p-3.5 rounded-2xl border border-slate-100">
+            <label className="text-xs font-bold text-slate-700">রিচ (কতজন দেখেছে):</label>
             <input
               type="number"
-              value={doctorInput.reach || ''}
-              onChange={(e) => setDoctorInput({ ...doctorInput, reach: Number(e.target.value) })}
-              className="w-full px-3 py-2 rounded-lg border border-slate-200 text-sm font-semibold"
+              value={inputs.reach || ''}
+              onChange={(e) => setInputs({ ...inputs, reach: Number(e.target.value) })}
+              className="w-full px-3 py-2 rounded-xl border border-slate-200 text-sm sm:text-base font-bold text-slate-900 focus:outline-none focus:border-emerald-500"
               placeholder="৮৫০০"
             />
           </div>
 
-          {/* Clicks */}
-          <div className="space-y-1">
-            <div className="flex items-center justify-between">
-              <label className="text-xs font-medium text-slate-700">
-                ৩. মোট ক্লিক সংখ্যা (Link Clicks):
-              </label>
-              <JargonBadge id="ctr" label="CTR" />
-            </div>
+          <div className="space-y-1.5 bg-white p-3.5 rounded-2xl border border-slate-100">
+            <label className="text-xs font-bold text-slate-700">ক্লিক সংখ্যা:</label>
             <input
               type="number"
-              value={doctorInput.clicks || ''}
-              onChange={(e) => setDoctorInput({ ...doctorInput, clicks: Number(e.target.value) })}
-              className="w-full px-3 py-2 rounded-lg border border-slate-200 text-sm font-semibold"
-              placeholder="২২০"
+              value={inputs.clicks || ''}
+              onChange={(e) => setInputs({ ...inputs, clicks: Number(e.target.value) })}
+              className="w-full px-3 py-2 rounded-xl border border-slate-200 text-sm sm:text-base font-bold text-slate-900 focus:outline-none focus:border-emerald-500"
+              placeholder="১৮০"
             />
           </div>
 
-          {/* Conversions / Messages */}
-          <div className="space-y-1">
-            <label className="text-xs font-medium text-slate-700 block">
-              ৪. মেসেজ বা বিক্রির সংখ্যা:
-            </label>
+          <div className="space-y-1.5 bg-white p-3.5 rounded-2xl border border-slate-100">
+            <label className="text-xs font-bold text-slate-700">মেসেজ/ইনকোয়ারি:</label>
             <input
               type="number"
-              value={doctorInput.conversions || ''}
-              onChange={(e) =>
-                setDoctorInput({ ...doctorInput, conversions: Number(e.target.value) })
-              }
-              className="w-full px-3 py-2 rounded-lg border border-slate-200 text-sm font-semibold"
-              placeholder="১৮"
+              value={inputs.conversations || ''}
+              onChange={(e) => setInputs({ ...inputs, conversations: Number(e.target.value) })}
+              className="w-full px-3 py-2 rounded-xl border border-slate-200 text-sm sm:text-base font-bold text-slate-900 focus:outline-none focus:border-emerald-500"
+              placeholder="২৫"
+            />
+          </div>
+
+          <div className="space-y-1.5 bg-white p-3.5 rounded-2xl border border-slate-100">
+            <label className="text-xs font-bold text-slate-700">সফল অর্ডার/বিক্রি:</label>
+            <input
+              type="number"
+              value={inputs.sales || ''}
+              onChange={(e) => setInputs({ ...inputs, sales: Number(e.target.value) })}
+              className="w-full px-3 py-2 rounded-xl border border-slate-200 text-sm sm:text-base font-bold text-slate-900 focus:outline-none focus:border-emerald-500"
+              placeholder="৪"
+            />
+          </div>
+
+          <div className="space-y-1.5 bg-white p-3.5 rounded-2xl border border-slate-100">
+            <label className="text-xs font-bold text-slate-700">বিজ্ঞাপন চলছে কতদিন:</label>
+            <input
+              type="number"
+              value={inputs.daysRunning || ''}
+              onChange={(e) => setInputs({ ...inputs, daysRunning: Number(e.target.value) })}
+              className="w-full px-3 py-2 rounded-xl border border-slate-200 text-sm sm:text-base font-bold text-slate-900 focus:outline-none focus:border-emerald-500"
+              placeholder="৩"
             />
           </div>
         </div>
       </div>
 
-      {/* Clean Diagnosis Result Card */}
-      <div className="bg-white p-5 rounded-xl border border-slate-200 space-y-4">
-        {/* Verdict Header */}
-        <div className="flex items-start gap-3 pb-3 border-b border-slate-100">
-          <div className="mt-0.5 flex-shrink-0">
-            {verdict.status === 'green' ? (
-              <CheckCircle2 className="w-5 h-5 text-emerald-600" />
-            ) : verdict.status === 'yellow' ? (
-              <AlertTriangle className="w-5 h-5 text-amber-500" />
+      {/* 2026 Interactive Metric Gauges */}
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+        {/* CPC Gauge */}
+        <div className="glass-card p-4 rounded-3xl border-slate-200 text-center space-y-1 shadow-xs">
+          <div className="flex items-center justify-center gap-1">
+            <span className="text-xs text-slate-500 font-semibold">ক্লিক খরচ (CPC)</span>
+            <JargonBadge id="cpc" label="?" />
+          </div>
+          <p className="text-xl sm:text-2xl font-extrabold text-slate-900">
+            ৳{useBengaliDigits ? toBengaliDigits(cpc) : cpc}
+          </p>
+          <span className="text-[11px] font-bold text-slate-500">টার্গেট: ৩-৭ ৳</span>
+        </div>
+
+        {/* CTR Gauge */}
+        <div className="glass-card p-4 rounded-3xl border-slate-200 text-center space-y-1 shadow-xs">
+          <div className="flex items-center justify-center gap-1">
+            <span className="text-xs text-slate-500 font-semibold">ক্লিক হার (CTR)</span>
+            <JargonBadge id="ctr" label="?" />
+          </div>
+          <p className="text-xl sm:text-2xl font-extrabold text-slate-900">
+            {useBengaliDigits ? toBengaliDigits(ctr) : ctr}%
+          </p>
+          <span className="text-[11px] font-bold text-emerald-700">টার্গেট: ১.৫%+</span>
+        </div>
+
+        {/* Conversion Rate Gauge */}
+        <div className="glass-card p-4 rounded-3xl border-slate-200 text-center space-y-1 shadow-xs">
+          <div className="flex items-center justify-center gap-1">
+            <span className="text-xs text-slate-500 font-semibold">মেসেজ কনভার্সন</span>
+          </div>
+          <p className="text-xl sm:text-2xl font-extrabold text-slate-900">
+            {useBengaliDigits ? toBengaliDigits(convRate) : convRate}%
+          </p>
+          <span className="text-[11px] font-bold text-slate-500">টার্গেট: ১০-২০%</span>
+        </div>
+
+        {/* CPA Gauge */}
+        <div className="glass-card p-4 rounded-3xl border-slate-200 text-center space-y-1 shadow-xs">
+          <div className="flex items-center justify-center gap-1">
+            <span className="text-xs text-slate-500 font-semibold">প্রতি সেলে খরচ (CPA)</span>
+          </div>
+          <p className="text-xl sm:text-2xl font-extrabold text-emerald-800">
+            ৳{useBengaliDigits ? toBengaliDigits(cpa) : cpa}
+          </p>
+          <span className="text-[11px] font-bold text-emerald-700">লিমিট: ৳{formatBDT(calculatedPlan.breakEvenCPA, useBengaliDigits)}</span>
+        </div>
+      </div>
+
+      {/* Traffic Light Diagnosis Result Card */}
+      <div
+        className={`glass-card p-6 sm:p-7 rounded-3xl space-y-5 border-2 shadow-lg ${
+          diagnosis.status === 'green'
+            ? 'border-emerald-500 bg-emerald-50/40'
+            : diagnosis.status === 'yellow'
+            ? 'border-amber-500 bg-amber-50/40'
+            : 'border-rose-500 bg-rose-50/40'
+        }`}
+      >
+        <div className="flex items-center justify-between pb-3 border-b border-slate-200/60">
+          <div className="flex items-center gap-2.5">
+            {diagnosis.status === 'green' ? (
+              <CheckCircle2 className="w-6 h-6 text-emerald-600" />
+            ) : diagnosis.status === 'yellow' ? (
+              <AlertTriangle className="w-6 h-6 text-amber-600" />
             ) : (
-              <XCircle className="w-5 h-5 text-rose-600" />
+              <XCircle className="w-6 h-6 text-rose-600" />
             )}
-          </div>
-          <div>
-            <span
-              className={`text-[11px] font-semibold px-2 py-0.5 rounded-md ${
-                verdict.status === 'green'
-                  ? 'bg-emerald-50 text-emerald-800'
-                  : verdict.status === 'yellow'
-                  ? 'bg-amber-50 text-amber-800'
-                  : 'bg-rose-50 text-rose-800'
-              }`}
-            >
-              {verdict.status === 'green'
-                ? 'সবুজ সংকেত (লাভজনক)'
-                : verdict.status === 'yellow'
-                ? 'হলুদ সংকেত (সতর্কতা)'
-                : 'লাল সংকেত (পরিবর্তন জরুরি)'}
-            </span>
-            <h3 className="text-base font-bold text-slate-900 mt-1">
-              {verdict.headline}
+            <h3 className="text-lg sm:text-xl font-extrabold text-slate-900">
+              {diagnosis.headline}
             </h3>
-            <p className="text-xs text-slate-600 mt-1 leading-relaxed">{verdict.summary}</p>
           </div>
+
+          <span
+            className={`text-xs font-black uppercase tracking-wider px-3 py-1 rounded-full ${
+              diagnosis.status === 'green'
+                ? 'bg-emerald-600 text-white'
+                : diagnosis.status === 'yellow'
+                ? 'bg-amber-500 text-white'
+                : 'bg-rose-600 text-white'
+            }`}
+          >
+            {diagnosis.status === 'green'
+              ? 'চমৎকার পারফরম্যান্স'
+              : diagnosis.status === 'yellow'
+              ? 'সতর্কতা ও সমন্বয়'
+              : 'জরুরি মেরামত'}
+          </span>
         </div>
 
-        {/* 4 Stats */}
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
-          <div className="p-3 rounded-lg bg-slate-50 border border-slate-100">
-            <span className="text-xs text-slate-500">CTR (ক্লিক হার)</span>
-            <p className="text-base font-bold text-slate-900 mt-0.5">
-              {formatDecimal(verdict.metrics.ctr, 1, useBengaliDigits)}%
+        {/* Diagnosis & Prescriptions */}
+        <div className="space-y-4">
+          <div className="p-4 rounded-2xl bg-white/80 border border-slate-200 shadow-xs space-y-1">
+            <p className="text-xs font-bold text-slate-500 uppercase">সারসংক্ষেপ:</p>
+            <p className="text-sm sm:text-base font-semibold text-slate-900 leading-relaxed">
+              {diagnosis.summary}
             </p>
           </div>
 
-          <div className="p-3 rounded-lg bg-slate-50 border border-slate-100">
-            <span className="text-xs text-slate-500">CPM (১০০০ রিচ)</span>
-            <p className="text-base font-bold text-slate-900 mt-0.5">
-              {formatBDT(verdict.metrics.cpm, useBengaliDigits)}
-            </p>
-          </div>
+          {diagnosis.diagnoses && diagnosis.diagnoses.length > 0 && (
+            <div className="space-y-2">
+              {diagnosis.diagnoses.map((d, i) => (
+                <div key={i} className="p-4 rounded-2xl bg-white border border-slate-200 space-y-1 shadow-xs">
+                  <p className="font-bold text-sm text-slate-900">⚠️ {d.problemBangla}</p>
+                  <p className="text-xs sm:text-sm text-slate-600 font-medium leading-relaxed">{d.explanationBangla}</p>
+                </div>
+              ))}
+            </div>
+          )}
 
-          <div className="p-3 rounded-lg bg-slate-50 border border-slate-100">
-            <span className="text-xs text-slate-500">ক্লিকে খরচ (CPC)</span>
-            <p className="text-base font-bold text-slate-900 mt-0.5">
-              {formatBDT(verdict.metrics.cpc, useBengaliDigits)}
+          <div className="p-5 rounded-2xl bg-white border border-slate-200 shadow-xs space-y-3">
+            <p className="text-sm font-extrabold text-slate-900 flex items-center gap-2">
+              <Zap className="w-4 h-4 text-emerald-600" />
+              {diagnosis.nextAction.title}:
             </p>
+            <div className="space-y-2">
+              {diagnosis.nextAction.actionSteps.map((step, idx) => (
+                <div key={idx} className="p-3 rounded-xl bg-slate-50 border border-slate-100 text-xs sm:text-sm text-slate-700 flex items-start gap-2.5 font-medium">
+                  <span className="w-5 h-5 rounded-full bg-slate-900 text-emerald-400 flex items-center justify-center font-bold text-xs flex-shrink-0 mt-0.5">
+                    {useBengaliDigits ? toBengaliDigits(idx + 1) : idx + 1}
+                  </span>
+                  <span>{step}</span>
+                </div>
+              ))}
+            </div>
           </div>
-
-          <div className="p-3 rounded-lg bg-slate-50 border border-slate-100">
-            <span className="text-xs text-slate-500">প্রতি মেসেজে খরচ</span>
-            <p className="text-base font-bold text-slate-900 mt-0.5">
-              {formatBDT(verdict.metrics.costPerConversion, useBengaliDigits)}
-            </p>
-          </div>
-        </div>
-
-        {/* Action Steps */}
-        <div className="bg-slate-50 p-4 rounded-lg space-y-2">
-          <h4 className="text-xs font-semibold text-slate-900">
-            {verdict.nextAction.title}:
-          </h4>
-          <ul className="space-y-1.5 text-xs text-slate-700 leading-relaxed">
-            {verdict.nextAction.actionSteps.map((step, i) => (
-              <li key={i} className="flex items-start gap-2">
-                <span className="w-1.5 h-1.5 rounded-full bg-slate-400 mt-1.5 flex-shrink-0" />
-                <span>{step}</span>
-              </li>
-            ))}
-          </ul>
         </div>
       </div>
 
       {/* Navigation Buttons */}
-      <div className="pt-3 flex items-center gap-3">
+      <div className="pt-4 flex items-center gap-3">
         <button
           type="button"
           onClick={() => setCurrentStep(5)}
-          className="flex-1 py-3 px-4 bg-white hover:bg-slate-50 text-slate-700 font-medium rounded-xl border border-slate-200 transition-colors flex items-center justify-center gap-2 text-sm"
+          className="flex-1 py-3.5 px-4 glass-card hover:bg-white text-slate-700 font-semibold rounded-2xl transition-all flex items-center justify-center gap-2 text-sm active:scale-95 shadow-sm"
         >
           <ArrowLeft className="w-4 h-4" />
-          <span>লঞ্চ প্ল্যানে ফিরুন</span>
+          <span>লঞ্চ গাইডে ফিরুন</span>
         </button>
 
         <button
           type="button"
-          onClick={() => setCurrentStep(7)}
-          className="flex-[2] py-3 px-5 bg-slate-900 hover:bg-slate-800 text-white font-medium rounded-xl transition-colors flex items-center justify-center gap-2 text-sm"
+          onClick={() => {
+            setCurrentStep(7);
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+          }}
+          className="flex-[2] py-3.5 px-6 bg-slate-900 hover:bg-slate-800 text-white font-bold rounded-2xl transition-all flex items-center justify-center gap-2 text-sm sm:text-base shadow-lg shadow-slate-900/10 active:scale-98"
         >
           <span>শব্দকোষ ও FAQ দেখুন</span>
           <ArrowRight className="w-4 h-4" />
