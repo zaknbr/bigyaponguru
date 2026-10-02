@@ -17,14 +17,10 @@ import {
   Package,
   ArrowRight,
   ArrowLeft,
-  TrendingUp,
   MessageCircle,
   PhoneCall,
   Globe,
   Check,
-  Zap,
-  Calculator,
-  Compass,
 } from 'lucide-react';
 
 const CATEGORY_ICONS: Record<string, React.ComponentType<{ className?: string }>> = {
@@ -75,41 +71,22 @@ export function Step1BusinessProfile() {
 
   return (
     <div className="space-y-6 animate-fade-in pb-12">
-      {/* 2026 Floating Wizard Progress Header */}
-      <div className="bg-white/80 backdrop-blur-xl p-4 rounded-3xl border border-slate-200/80 shadow-sm flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-        <div className="flex items-center gap-2.5">
-          <div className="w-8 h-8 rounded-xl bg-emerald-100 text-emerald-700 flex items-center justify-center font-black text-xs">
-            <Compass className="w-4 h-4" />
-          </div>
-          <div>
-            <div className="flex items-center gap-2">
-              <span className="text-xs font-black text-slate-900">
-                ধাপ {useBengaliDigits ? toBengaliDigits(subStep) : subStep} / {useBengaliDigits ? toBengaliDigits(totalSubSteps) : totalSubSteps}
-              </span>
-              <span className="text-[11px] text-slate-400 font-medium hidden sm:inline">•</span>
-              <span className="text-[11px] text-emerald-700 font-bold hidden sm:inline">
-                {subStep === 1 && 'ক্যাটাগরি ও পণ্য'}
-                {subStep === 2 && 'মূল্য ও লাভের মার্জিন'}
-                {subStep === 3 && 'বিজ্ঞাপন বাজেট'}
-                {subStep === 4 && 'বিক্রির মাধ্যম'}
-                {subStep === 5 && 'অ্যাকাউন্ট ও লোকেশন'}
-              </span>
-            </div>
-            <p className="text-[11px] text-slate-500">আপনার তথ্যগুলো শুধু আপনার ব্রাউজারে সুরক্ষিত থাকবে</p>
-          </div>
-        </div>
-
-        {/* Progress Bar Pills */}
-        <div className="flex items-center gap-1.5 self-end sm:self-center">
+      {/* Clean Step Counter */}
+      <div className="flex items-center justify-between pb-2 border-b border-slate-200/60">
+        <span className="text-xs font-medium text-slate-500">
+          প্রশ্ন {useBengaliDigits ? toBengaliDigits(subStep) : subStep} /{' '}
+          {useBengaliDigits ? toBengaliDigits(totalSubSteps) : totalSubSteps}
+        </span>
+        <div className="flex items-center gap-1.5">
           {Array.from({ length: totalSubSteps }).map((_, i) => (
             <div
               key={i}
-              className={`h-2 rounded-full transition-all duration-300 ${
+              className={`h-1.5 rounded-full transition-all duration-200 ${
                 subStep === i + 1
-                  ? 'w-7 bg-emerald-600 shadow-xs'
+                  ? 'w-6 bg-slate-900'
                   : subStep > i + 1
-                  ? 'w-2.5 bg-emerald-400'
-                  : 'w-2.5 bg-slate-200'
+                  ? 'w-2 bg-emerald-500'
+                  : 'w-2 bg-slate-200'
               }`}
             />
           ))}
@@ -118,22 +95,18 @@ export function Step1BusinessProfile() {
 
       {/* SUB-STEP 1: Category & Product Name */}
       {subStep === 1 && (
-        <div className="space-y-6 animate-slide-up">
-          <div className="space-y-1.5">
-            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50 text-emerald-800 text-xs font-bold border border-emerald-200">
-              <Sparkles className="w-3.5 h-3.5 text-emerald-600" />
-              <span>১ম পদক্ষেপ: পণ্য নির্বাচন</span>
-            </div>
-            <h2 className="text-xl sm:text-2xl font-black text-slate-900 tracking-tight">
-              আপনি কোন ধরনের পণ্য বা সেবা বিক্রি করছেন?
+        <div className="space-y-5 animate-fade-in">
+          <div className="space-y-1">
+            <h2 className="text-lg sm:text-xl font-semibold text-slate-900">
+              আপনি কী ধরনের পণ্য বা সেবা বিক্রি করছেন?
             </h2>
-            <p className="text-xs sm:text-sm text-slate-500 leading-relaxed">
-              সঠিক ক্যাটাগরি বেছে নিলে বিজ্ঞাপন গুরু স্বয়ংক্রিয়ভাবে অডিয়েন্স ইন্টারেস্ট ও বাজেট ঠিক করে দেবে।
+            <p className="text-xs sm:text-sm text-slate-500">
+              সঠিক ক্যাটাগরি বেছে নিলে আপনার জন্য মানানসই অডিয়েন্স ও বাজেট প্ল্যান তৈরি হবে।
             </p>
           </div>
 
-          {/* Category Cards Grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          {/* Clean Category Cards */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
             {Object.values(CATEGORY_CONFIGS).map((item) => {
               const Icon = CATEGORY_ICONS[item.iconName] || Package;
               const isSelected = profile.category === item.id;
@@ -143,30 +116,30 @@ export function Step1BusinessProfile() {
                   key={item.id}
                   type="button"
                   onClick={() => handleSelectCategory(item.id)}
-                  className={`p-4 rounded-3xl text-left border-2 transition-all flex items-start gap-3.5 relative active:scale-[0.98] ${
+                  className={`p-3.5 rounded-xl text-left border transition-colors flex items-center gap-3 relative ${
                     isSelected
-                      ? 'border-emerald-600 bg-emerald-50/70 shadow-md shadow-emerald-500/10 ring-2 ring-emerald-500/20'
-                      : 'border-slate-200/80 hover:border-slate-300 bg-white shadow-xs'
+                      ? 'border-emerald-600 bg-emerald-50/50 text-slate-900'
+                      : 'border-slate-200 hover:border-slate-300 bg-white text-slate-700'
                   }`}
                 >
                   <div
-                    className={`w-11 h-11 rounded-2xl flex items-center justify-center flex-shrink-0 transition-transform ${
+                    className={`w-9 h-9 rounded-lg flex items-center justify-center flex-shrink-0 ${
                       isSelected
-                        ? 'bg-emerald-600 text-white shadow-sm scale-105'
+                        ? 'bg-emerald-600 text-white'
                         : 'bg-slate-100 text-slate-600'
                     }`}
                   >
-                    <Icon className="w-5 h-5" />
+                    <Icon className="w-4 h-4" />
                   </div>
-                  <div className="flex-1 pr-6">
-                    <p className="font-extrabold text-sm sm:text-base text-slate-900">{item.nameBangla}</p>
+                  <div className="flex-1 min-w-0 pr-4">
+                    <p className="font-semibold text-sm text-slate-900 truncate">{item.nameBangla}</p>
                     <p className="text-xs text-slate-500 mt-0.5">
-                      গড় বিক্রয়মূল্য: <span className="font-bold text-slate-700">{formatBDT(item.defaultSellingPrice, useBengaliDigits)}</span>
+                      গড় মূল্য: {formatBDT(item.defaultSellingPrice, useBengaliDigits)}
                     </p>
                   </div>
                   {isSelected && (
-                    <div className="absolute right-3.5 top-4 w-5 h-5 rounded-full bg-emerald-600 text-white flex items-center justify-center shadow-sm animate-fade-in">
-                      <Check className="w-3.5 h-3.5" />
+                    <div className="w-4 h-4 rounded-full bg-emerald-600 text-white flex items-center justify-center flex-shrink-0">
+                      <Check className="w-3 h-3" />
                     </div>
                   )}
                 </button>
@@ -175,130 +148,102 @@ export function Step1BusinessProfile() {
           </div>
 
           {/* Product Specific Name Input */}
-          <div className="bg-white p-5 rounded-3xl border border-slate-200/80 shadow-xs space-y-2.5">
-            <label className="block text-xs font-bold text-slate-700">
-              পণ্যের নির্দিষ্ট নাম বা ধরন (ঐচ্ছিক):
+          <div className="bg-white p-4 rounded-xl border border-slate-200 space-y-2">
+            <label className="block text-xs font-medium text-slate-700">
+              পণ্যের নির্দিষ্ট নাম বা বিবরণ (ঐচ্ছিক):
             </label>
-            <div className="relative">
-              <input
-                type="text"
-                value={profile.productName}
-                onChange={(e) => updateProfile({ productName: e.target.value })}
-                placeholder="যেমন: প্রিমিয়াম সুতি পাঞ্জাবি, অর্গানিক মধু, লেদার ওয়ালেট"
-                className="w-full px-4 py-3.5 rounded-2xl border border-slate-200 bg-slate-50/50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-emerald-500 text-sm font-semibold transition-all"
-              />
-            </div>
-            <p className="text-[11px] text-slate-400">নাম লিখলে কপিরাইটিং কিট ও প্ল্যানে আপনার পণ্যের নাম দিয়ে সুন্দর অ্যাড তৈরি হবে।</p>
+            <input
+              type="text"
+              value={profile.productName}
+              onChange={(e) => updateProfile({ productName: e.target.value })}
+              placeholder="যেমন: সুতি থ্রি-পিস, চামড়ার মানিব্যাগ, অর্গানিক মধু"
+              className="w-full px-3.5 py-2.5 rounded-lg border border-slate-200 bg-slate-50/40 focus:bg-white focus:outline-none focus:ring-1 focus:ring-slate-900 text-sm"
+            />
           </div>
         </div>
       )}
 
       {/* SUB-STEP 2: Pricing, Cost & Profit Margin */}
       {subStep === 2 && (
-        <div className="space-y-6 animate-slide-up">
-          <div className="space-y-1.5">
-            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50 text-emerald-800 text-xs font-bold border border-emerald-200">
-              <Calculator className="w-3.5 h-3.5 text-emerald-600" />
-              <span>২য় পদক্ষেপ: লাভ ও খরচের অংক</span>
-            </div>
-            <h2 className="text-xl sm:text-2xl font-black text-slate-900 tracking-tight">
-              বিক্রয় মূল্য ও পণ্য খরচের হিসাব
+        <div className="space-y-5 animate-fade-in">
+          <div className="space-y-1">
+            <h2 className="text-lg sm:text-xl font-semibold text-slate-900">
+              বিক্রয় মূল্য ও খরচের হিসাব
             </h2>
-            <p className="text-xs sm:text-sm text-slate-500 leading-relaxed">
-              সঠিক মার্জিন জানা থাকলে বিজ্ঞাপনে কখনও অন্ধের মতো খরচ করে লোকসান হবে না।
+            <p className="text-xs sm:text-sm text-slate-500">
+              লাভের মার্জিন জানা থাকলে বিজ্ঞাপনে নিরাপদ খরচের সীমা সহজে বোঝা যায়।
             </p>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
             {/* Selling Price */}
-            <div className="bg-white p-5 rounded-3xl border border-slate-200/80 shadow-xs space-y-2.5">
-              <label className="block text-xs font-bold text-slate-700">
+            <div className="bg-white p-4 rounded-xl border border-slate-200 space-y-1.5">
+              <label className="block text-xs font-medium text-slate-700">
                 ১. প্রতিটির বিক্রয়মূল্য (৳):
               </label>
               <div className="relative">
-                <span className="absolute left-4 top-3.5 text-slate-400 font-extrabold text-base">৳</span>
+                <span className="absolute left-3.5 top-2.5 text-slate-400 font-semibold text-sm">৳</span>
                 <input
                   type="number"
                   value={profile.sellingPrice || ''}
                   onChange={(e) => updateProfile({ sellingPrice: Number(e.target.value) })}
-                  className="w-full pl-9 pr-4 py-3.5 rounded-2xl border border-slate-200 bg-slate-50/50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-emerald-500 text-lg font-black text-slate-900 transition-all"
+                  className="w-full pl-8 pr-3.5 py-2 rounded-lg border border-slate-200 focus:outline-none focus:ring-1 focus:ring-slate-900 text-base font-semibold text-slate-900"
                   placeholder="১৫০০"
                 />
               </div>
-              <p className="text-[11px] text-slate-400">কাস্টমারের কাছ থেকে ডেলিভারিসহ মোট যা নেবেন</p>
+              <p className="text-[11px] text-slate-400">গ্রাহকের কাছ থেকে পণ্যটির যে মূল্য নেবেন</p>
             </div>
 
             {/* Cost Price */}
-            <div className="bg-white p-5 rounded-3xl border border-slate-200/80 shadow-xs space-y-2.5">
-              <label className="block text-xs font-bold text-slate-700">
-                ২. পণ্য তৈরি বা কেনার খরচ (৳):
+            <div className="bg-white p-4 rounded-xl border border-slate-200 space-y-1.5">
+              <label className="block text-xs font-medium text-slate-700">
+                ২. পণ্য কেনা বা তৈরির মোট খরচ (৳):
               </label>
               <div className="relative">
-                <span className="absolute left-4 top-3.5 text-slate-400 font-extrabold text-base">৳</span>
+                <span className="absolute left-3.5 top-2.5 text-slate-400 font-semibold text-sm">৳</span>
                 <input
                   type="number"
                   value={profile.costPrice || ''}
                   onChange={(e) => updateProfile({ costPrice: Number(e.target.value) })}
-                  className="w-full pl-9 pr-4 py-3.5 rounded-2xl border border-slate-200 bg-slate-50/50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-emerald-500 text-lg font-black text-slate-900 transition-all"
+                  className="w-full pl-8 pr-3.5 py-2 rounded-lg border border-slate-200 focus:outline-none focus:ring-1 focus:ring-slate-900 text-base font-semibold text-slate-900"
                   placeholder="৯০০"
                 />
               </div>
-              <p className="text-[11px] text-slate-400">পণ্য কেনা, প্যাকেজিং ও ডেলিভারি আনুমানিক খরচ</p>
+              <p className="text-[11px] text-slate-400">পণ্য ক্রয়, প্যাকেজিং ও আনুমানিক খরচ</p>
             </div>
           </div>
 
-          {/* 2026 Interactive Profit & Margin Visual Card */}
-          <div className="bg-gradient-to-br from-slate-900 via-slate-900 to-emerald-950 text-white p-6 rounded-3xl shadow-xl space-y-4 border border-slate-800">
-            <div className="flex items-center justify-between border-b border-slate-800 pb-3">
-              <span className="text-xs font-black text-emerald-400 uppercase tracking-wider flex items-center gap-2">
-                <TrendingUp className="w-4 h-4 text-emerald-400" />
-                আপনার লাভের লাইভ হিসাব (Profit Meter)
-              </span>
-              <span className="text-xs px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 font-black">
+          {/* Clean Profit Analysis Card */}
+          <div className="bg-white p-5 rounded-xl border border-slate-200 space-y-4">
+            <div className="flex items-center justify-between pb-3 border-b border-slate-100">
+              <span className="text-xs font-semibold text-slate-700">লাভের প্রাথমিক হিসাব</span>
+              <span className="text-xs font-medium px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-800 border border-emerald-200">
                 মার্জিন: {useBengaliDigits ? toBengaliDigits(marginPercent) : marginPercent}%
               </span>
             </div>
 
             <div className="grid grid-cols-2 gap-4">
-              <div className="bg-slate-800/60 p-4 rounded-2xl border border-slate-700/60">
-                <p className="text-xs text-slate-400 font-medium">প্রতি সেলে মোট লাভ:</p>
-                <p className="text-xl sm:text-2xl font-black text-emerald-400 mt-1">
+              <div>
+                <p className="text-xs text-slate-500">প্রতি সেলে মোট লাভ</p>
+                <p className="text-lg sm:text-xl font-bold text-slate-900 mt-0.5">
                   {formatBDT(profit, useBengaliDigits)}
                 </p>
               </div>
-              <div className="bg-slate-800/60 p-4 rounded-2xl border border-slate-700/60">
+              <div>
                 <div className="flex items-center gap-1">
-                  <p className="text-xs text-slate-400 font-medium">ব্রেক-ইভেন লিমিট:</p>
+                  <p className="text-xs text-slate-500">ব্রেক-ইভেন সীমা</p>
                   <JargonBadge id="breakeven_cpa" label="CPA" />
                 </div>
-                <p className="text-xl sm:text-2xl font-black text-amber-300 mt-1">
+                <p className="text-lg sm:text-xl font-bold text-emerald-700 mt-0.5">
                   {formatBDT(profit, useBengaliDigits)}
                 </p>
               </div>
             </div>
 
-            {/* Visual Gauge Bar */}
-            <div className="space-y-1.5 pt-1">
-              <div className="flex items-center justify-between text-[11px] text-slate-400">
-                <span>পণ্য খরচ ({profile.sellingPrice ? Math.round((profile.costPrice / profile.sellingPrice) * 100) : 0}%)</span>
-                <span className="text-emerald-300">নিট প্রফিট ({marginPercent}%)</span>
-              </div>
-              <div className="w-full h-2.5 rounded-full bg-slate-800 overflow-hidden flex">
-                <div
-                  className="bg-slate-500 h-full transition-all duration-500"
-                  style={{ width: `${profile.sellingPrice ? Math.min(100, Math.round((profile.costPrice / profile.sellingPrice) * 100)) : 50}%` }}
-                />
-                <div
-                  className="bg-emerald-500 h-full transition-all duration-500"
-                  style={{ width: `${Math.max(0, marginPercent)}%` }}
-                />
-              </div>
-            </div>
-
-            <p className="text-xs text-slate-300 leading-relaxed bg-slate-800/50 p-3.5 rounded-2xl border border-slate-700/50">
-              🎯 <strong>বিজ্ঞাপন গুরুর বিশ্লেষণ:</strong> ১টি অর্ডার নিশ্চিত করতে বিজ্ঞাপনে সর্বোচ্চ{' '}
-              <strong className="text-emerald-300">{formatBDT(profit, useBengaliDigits)}</strong>{' '}
-              টাকা পর্যন্ত খরচ হলেও আপনি লোকসানে পড়বেন না।
+            <p className="text-xs text-slate-600 bg-slate-50 p-3 rounded-lg leading-relaxed">
+              💡 এর মানে হলো: ১টি পণ্য বিক্রি করতে বিজ্ঞাপনে সর্বোচ্চ{' '}
+              <span className="font-semibold text-slate-900">{formatBDT(profit, useBengaliDigits)}</span>{' '}
+              টাকা পর্যন্ত খরচ হলেও আপনার কোনো লোকসান হবে না।
             </p>
           </div>
         </div>
@@ -306,37 +251,33 @@ export function Step1BusinessProfile() {
 
       {/* SUB-STEP 3: Monthly Ad Budget */}
       {subStep === 3 && (
-        <div className="space-y-6 animate-slide-up">
-          <div className="space-y-1.5">
-            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50 text-emerald-800 text-xs font-bold border border-emerald-200">
-              <Zap className="w-3.5 h-3.5 text-emerald-600" />
-              <span>৩য় পদক্ষেপ: বিজ্ঞাপনের বাজেট</span>
-            </div>
-            <h2 className="text-xl sm:text-2xl font-black text-slate-900 tracking-tight">
-              প্রতি মাসে বিজ্ঞাপনে কত টাকা বরাদ্দ রাখতে চান?
+        <div className="space-y-5 animate-fade-in">
+          <div className="space-y-1">
+            <h2 className="text-lg sm:text-xl font-semibold text-slate-900">
+              বিজ্ঞাপনে প্রতি মাসে কত টাকা বাজেট রাখতে চান?
             </h2>
-            <p className="text-xs sm:text-sm text-slate-500 leading-relaxed">
-              শুরুতেই বড় বাজেট দরকার নেই। দৈনিক ছোট বাজেটে টেস্ট করে লাভ হলে আস্তে আস্তে বাজেট স্কেল করবেন।
+            <p className="text-xs sm:text-sm text-slate-500">
+              ছোট বাজেট দিয়ে শুরু করে লাভ হলে আস্তে আস্তে বাজেট বাড়ানোই বুদ্ধিমানের কাজ।
             </p>
           </div>
 
-          {/* Quick Interactive Budget Preset Chips */}
+          {/* Quick Presets */}
           <div className="space-y-2">
-            <span className="text-xs font-bold text-slate-700">দ্রুত বাজেট বেছে নিন:</span>
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+            <span className="text-xs font-medium text-slate-600">জনপ্রিয় বাজেট প্যাকেজ:</span>
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
               {[4500, 8000, 15000, 30000].map((b) => (
                 <button
                   key={b}
                   type="button"
                   onClick={() => updateProfile({ monthlyBudget: b })}
-                  className={`p-3.5 rounded-2xl border-2 font-black text-sm transition-all active:scale-95 text-center ${
+                  className={`p-3 rounded-xl border text-center transition-colors ${
                     profile.monthlyBudget === b
-                      ? 'border-emerald-600 bg-emerald-50 text-emerald-950 shadow-sm ring-2 ring-emerald-500/20'
-                      : 'border-slate-200/80 bg-white text-slate-700 hover:border-slate-300'
+                      ? 'border-emerald-600 bg-emerald-50/60 text-slate-900 font-semibold'
+                      : 'border-slate-200 bg-white text-slate-700 hover:border-slate-300'
                   }`}
                 >
-                  <p className="text-base">{formatBDT(b, useBengaliDigits)}</p>
-                  <p className="text-[10px] text-slate-500 font-semibold mt-0.5">
+                  <p className="text-sm font-semibold">{formatBDT(b, useBengaliDigits)}</p>
+                  <p className="text-[11px] text-slate-500 mt-0.5">
                     ~{formatBDT(Math.round(b / 20), useBengaliDigits)}/দিন
                   </p>
                 </button>
@@ -345,82 +286,64 @@ export function Step1BusinessProfile() {
           </div>
 
           {/* Custom Budget Input */}
-          <div className="bg-white p-5 rounded-3xl border border-slate-200/80 shadow-xs space-y-2.5">
-            <label className="block text-xs font-bold text-slate-700">
-              অথবা আপনার নিজস্ব মাসিক বাজেট লিখুন (৳):
+          <div className="bg-white p-4 rounded-xl border border-slate-200 space-y-2">
+            <label className="block text-xs font-medium text-slate-700">
+              অথবা আপনার নির্ধারিত বাজেট লিখুন (৳):
             </label>
             <div className="relative">
-              <span className="absolute left-4 top-3.5 text-slate-400 font-black text-base">৳</span>
+              <span className="absolute left-3.5 top-2.5 text-slate-400 font-semibold text-sm">৳</span>
               <input
                 type="number"
                 value={profile.monthlyBudget || ''}
                 onChange={(e) => updateProfile({ monthlyBudget: Number(e.target.value) })}
-                className="w-full pl-9 pr-4 py-3.5 rounded-2xl border border-slate-200 bg-slate-50/50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-emerald-500 text-lg font-black text-slate-900 transition-all"
+                className="w-full pl-8 pr-3.5 py-2 rounded-lg border border-slate-200 focus:outline-none focus:ring-1 focus:ring-slate-900 text-base font-semibold text-slate-900"
                 placeholder="৮০০০"
               />
             </div>
-            <div className="flex items-center justify-between text-xs text-slate-500 pt-1">
-              <span>দৈনিক আনুমানিক খরচ:</span>
-              <span className="font-bold text-emerald-700">
-                {formatBDT(Math.round((profile.monthlyBudget || 6000) / 20), useBengaliDigits)} / প্রতিদিন
-              </span>
-            </div>
-          </div>
-
-          {/* Agency Pro Tip */}
-          <div className="bg-indigo-50/80 border border-indigo-200/80 p-4 rounded-3xl text-xs sm:text-sm text-indigo-950 space-y-1.5">
-            <p className="font-extrabold text-indigo-900 flex items-center gap-1.5">
-              <Sparkles className="w-4 h-4 text-indigo-600" />
-              <span>নতুনদের জন্য এজেন্সি রুল:</span>
-            </p>
-            <p className="leading-relaxed text-indigo-900/90 text-xs">
-              প্রথম ৫-৭ দিন প্রতিদিন ৳৪০০ - ৳৬০০ টাকার বাজেট দিয়ে ২-৩টি ভিন্ন অ্যাড টেস্ট করুন। ভালো ফলাফল পেলে তবেই বাজেট বাড়াবেন।
+            <p className="text-[11px] text-slate-400">
+              দৈনিক খরচ হবে গড়ে প্রায় {formatBDT(Math.round((profile.monthlyBudget || 6000) / 20), useBengaliDigits)} টাকা।
             </p>
           </div>
         </div>
       )}
 
-      {/* SUB-STEP 4: Sales Channel / How Customers Buy */}
+      {/* SUB-STEP 4: Sales Channel */}
       {subStep === 4 && (
-        <div className="space-y-6 animate-slide-up">
-          <div className="space-y-1.5">
-            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50 text-emerald-800 text-xs font-bold border border-emerald-200">
-              <MessageCircle className="w-3.5 h-3.5 text-emerald-600" />
-              <span>৪র্থ পদক্ষেপ: বিক্রির মাধ্যম</span>
-            </div>
-            <h2 className="text-xl sm:text-2xl font-black text-slate-900 tracking-tight">
-              কাস্টমাররা আপনার পণ্য কীভাবে অর্ডার করে?
+        <div className="space-y-5 animate-fade-in">
+          <div className="space-y-1">
+            <h2 className="text-lg sm:text-xl font-semibold text-slate-900">
+              কাস্টমাররা আপনার থেকে কীভাবে কেনাকাটা করে?
             </h2>
-            <p className="text-xs sm:text-sm text-slate-500 leading-relaxed">
-              আপনার সেলস চ্যানেলের ওপর ভিত্তি করে ক্যাম্পেইনের অবজেক্টিভ (মেসেঞ্জার বা ওয়েবসাইট সেলস) সেট হবে।
+            <p className="text-xs sm:text-sm text-slate-500">
+              আপনার অর্ডারের মাধ্যমের ওপর ভিত্তি করে সঠিক বিজ্ঞাপনী অবজেক্টিভ নির্ধারণ করা হবে।
             </p>
           </div>
 
-          <div className="space-y-3">
+          <div className="space-y-2.5">
             {[
               {
                 id: 'messenger' as SalesChannel,
-                title: 'মেসেঞ্জার চ্যাটে (Messenger Chat)',
-                desc: 'গ্রাহক বিজ্ঞাপনে ট্যাপ করে ইনবক্সে কথা বলে ঠিকানা ও ফোন নাম্বার দিয়ে অর্ডার কনফার্ম করে।',
+                title: 'ফেসবুক মেসেঞ্জার চ্যাটে (Messenger Chat)',
+                desc: 'গ্রাহক বিজ্ঞাপনে ক্লিক করে সরাসরি মেসেঞ্জারে কথা বলে অর্ডার কনফার্ম করে।',
                 recommended: true,
                 icon: MessageCircle,
               },
               {
                 id: 'whatsapp' as SalesChannel,
                 title: 'হোয়াটসঅ্যাপ মেসেজে (WhatsApp Direct)',
-                desc: 'সরাসরি হোয়াটসঅ্যাপে ক্যাটালগ ও ছবি দেখে চ্যাটের মাধ্যমে ক্যাশ অন ডেলিভারিতে অর্ডার নেয়।',
+                desc: 'সরাসরি হোয়াটসঅ্যাপে ক্যাটালগ ও ছবি পাঠিয়ে চ্যাটে বিক্রি।',
                 icon: MessageCircle,
               },
               {
                 id: 'website' as SalesChannel,
-                title: 'নিজস্ব ওয়েবসাইটে (E-commerce Website)',
-                desc: 'গ্রাহক ওয়েবসাইটে গিয়ে সরাসরি অ্যাড টু কার্ট ও চেকআউট করে কেনাকাটা করে।',
+                title: 'নিজস্ব ই-কমার্স ওয়েবসাইটে (Website Order)',
+                desc: 'গ্রাহক ওয়েবসাইটে গিয়ে সরাসরি অ্যাড টু কার্ট ও চেকআউট করে।',
                 icon: Globe,
               },
               {
                 id: 'phone' as SalesChannel,
-                title: 'সরাসরি ফোন কলে (Direct Phone Calls)',
-                desc: 'উচ্চমূল্যের পণ্য, পাইকারি বা সার্ভিসের ক্ষেত্রে ফোনে কথা বলে বুকিং নেওয়া হয়।',
+                title: 'সরাসরি ফোন কলে (Phone Call / Lead)',
+                desc: 'উচ্চমূল্যের পণ্য বা সার্ভিসের ক্ষেত্রে ফোনে কথা বলে বুকিং নেওয়া।',
                 icon: PhoneCall,
               },
             ].map((ch) => {
@@ -432,35 +355,35 @@ export function Step1BusinessProfile() {
                   key={ch.id}
                   type="button"
                   onClick={() => updateProfile({ salesChannel: ch.id })}
-                  className={`w-full p-4 rounded-3xl text-left border-2 transition-all flex items-start gap-3.5 relative active:scale-[0.99] ${
+                  className={`w-full p-3.5 rounded-xl text-left border transition-colors flex items-start gap-3 relative ${
                     isSelected
-                      ? 'border-emerald-600 bg-emerald-50/70 shadow-md shadow-emerald-500/10 ring-2 ring-emerald-500/20'
-                      : 'border-slate-200/80 hover:border-slate-300 bg-white shadow-xs'
+                      ? 'border-emerald-600 bg-emerald-50/50 text-slate-900'
+                      : 'border-slate-200 hover:border-slate-300 bg-white text-slate-700'
                   }`}
                 >
                   <div
-                    className={`w-11 h-11 rounded-2xl flex items-center justify-center flex-shrink-0 transition-transform ${
+                    className={`w-9 h-9 rounded-lg flex items-center justify-center flex-shrink-0 ${
                       isSelected
-                        ? 'bg-emerald-600 text-white shadow-sm scale-105'
+                        ? 'bg-emerald-600 text-white'
                         : 'bg-slate-100 text-slate-600'
                     }`}
                   >
-                    <Icon className="w-5 h-5" />
+                    <Icon className="w-4 h-4" />
                   </div>
                   <div className="flex-1 pr-6">
-                    <div className="flex items-center gap-2 flex-wrap">
-                      <p className="font-extrabold text-sm sm:text-base text-slate-900">{ch.title}</p>
+                    <div className="flex items-center gap-2">
+                      <p className="font-semibold text-sm text-slate-900">{ch.title}</p>
                       {ch.recommended && (
-                        <span className="text-[10px] font-black px-2 py-0.5 bg-emerald-100 text-emerald-800 rounded-full border border-emerald-300">
-                          বাংলাদেশে সর্বাধিক কার্যকর
+                        <span className="text-[10px] font-medium px-2 py-0.2 bg-emerald-100 text-emerald-800 rounded-full">
+                          জনপ্রিয়
                         </span>
                       )}
                     </div>
-                    <p className="text-xs text-slate-500 mt-1 leading-relaxed">{ch.desc}</p>
+                    <p className="text-xs text-slate-500 mt-0.5">{ch.desc}</p>
                   </div>
                   {isSelected && (
-                    <div className="absolute right-3.5 top-4 w-5 h-5 rounded-full bg-emerald-600 text-white flex items-center justify-center shadow-sm animate-fade-in">
-                      <Check className="w-3.5 h-3.5" />
+                    <div className="w-4 h-4 rounded-full bg-emerald-600 text-white flex items-center justify-center flex-shrink-0 mt-1">
+                      <Check className="w-3 h-3" />
                     </div>
                   )}
                 </button>
@@ -472,74 +395,70 @@ export function Step1BusinessProfile() {
 
       {/* SUB-STEP 5: Existing Social Assets & Location */}
       {subStep === 5 && (
-        <div className="space-y-6 animate-slide-up">
-          <div className="space-y-1.5">
-            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50 text-emerald-800 text-xs font-bold border border-emerald-200">
-              <Globe className="w-3.5 h-3.5 text-emerald-600" />
-              <span>৫ম পদক্ষেপ: প্ল্যাটফর্ম ও এলাকা</span>
-            </div>
-            <h2 className="text-xl sm:text-2xl font-black text-slate-900 tracking-tight">
-              আপনার সোশ্যাল মিডিয়া ও টার্গেট এলাকা
+        <div className="space-y-5 animate-fade-in">
+          <div className="space-y-1">
+            <h2 className="text-lg sm:text-xl font-semibold text-slate-900">
+              আপনার অ্যাকাউন্ট ও টার্গেট এলাকা
             </h2>
-            <p className="text-xs sm:text-sm text-slate-500 leading-relaxed">
-              বর্তমান অ্যাকাউন্ট এবং ডেলিভারি এরিয়া নির্বাচন করুন।
+            <p className="text-xs sm:text-sm text-slate-500">
+              বর্তমান পেজ ও প্ল্যাটফর্মের স্ট্যাটাস চিহ্নিত করুন।
             </p>
           </div>
 
-          {/* Social Presence Checkboxes */}
-          <div className="bg-white p-5 rounded-3xl border border-slate-200/80 shadow-xs space-y-3">
-            <label className="block text-xs font-bold text-slate-700">
+          {/* Social Presence */}
+          <div className="bg-white p-4 rounded-xl border border-slate-200 space-y-2.5">
+            <label className="block text-xs font-medium text-slate-700">
               আপনার কোন কোন প্ল্যাটফর্মে সক্রিয় একাউন্ট আছে?
             </label>
 
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
               {[
-                { key: 'hasFbPage', label: 'ফেসবুক পেজ (FB Page)', val: profile.hasFbPage },
-                { key: 'hasInstagram', label: 'ইনস্টাগ্রাম (Instagram)', val: profile.hasInstagram },
-                { key: 'hasTiktok', label: 'টিকটক অ্যাকাউন্ট (TikTok)', val: profile.hasTiktok },
+                { key: 'hasFbPage', label: 'ফেসবুক পেজ', val: profile.hasFbPage },
+                { key: 'hasInstagram', label: 'ইনস্টাগ্রাম', val: profile.hasInstagram },
+                { key: 'hasTiktok', label: 'টিকটক একাউন্ট', val: profile.hasTiktok },
               ].map((item) => (
                 <button
                   key={item.key}
                   type="button"
                   onClick={() => updateProfile({ [item.key]: !item.val })}
-                  className={`p-3.5 rounded-2xl border-2 text-left flex items-center justify-between text-xs font-bold transition-all active:scale-95 ${
+                  className={`p-3 rounded-lg border text-left flex items-center justify-between text-xs font-medium transition-colors ${
                     item.val
-                      ? 'border-emerald-600 bg-emerald-50 text-emerald-950 shadow-xs'
+                      ? 'border-emerald-600 bg-emerald-50/50 text-slate-900'
                       : 'border-slate-200 bg-slate-50/50 text-slate-600'
                   }`}
                 >
                   <span>{item.label}</span>
                   <div
-                    className={`w-5 h-5 rounded-lg flex items-center justify-center transition-all ${
-                      item.val ? 'bg-emerald-600 text-white shadow-xs' : 'border border-slate-300 bg-white'
+                    className={`w-4 h-4 rounded flex items-center justify-center ${
+                      item.val ? 'bg-emerald-600 text-white' : 'border border-slate-300'
                     }`}
                   >
-                    {item.val && <Check className="w-3.5 h-3.5" />}
+                    {item.val && <Check className="w-3 h-3" />}
                   </div>
                 </button>
               ))}
             </div>
           </div>
 
-          {/* Delivery Area / Location */}
-          <div className="bg-white p-5 rounded-3xl border border-slate-200/80 shadow-xs space-y-3">
-            <label className="block text-xs font-bold text-slate-700">
-              আপনি প্রধানত কোন এলাকায় পণ্য ডেলিভারি দেন?
+          {/* Location */}
+          <div className="bg-white p-4 rounded-xl border border-slate-200 space-y-2.5">
+            <label className="block text-xs font-medium text-slate-700">
+              প্রধানত কোন এলাকায় পণ্য ডেলিভারি দেন?
             </label>
 
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
               {[
                 { id: 'all_bd', label: 'সমগ্র বাংলাদেশ (৬৪ জেলা)' },
                 { id: 'dhaka_only', label: 'শুধুমাত্র ঢাকা মেট্রো' },
-                { id: 'divisional_cities', label: 'প্রধান বিভাগীয় শহরসমূহ' },
+                { id: 'divisional_cities', label: 'প্রধান বিভাগীয় শহরগুলো' },
               ].map((loc) => (
                 <button
                   key={loc.id}
                   type="button"
                   onClick={() => updateProfile({ targetCity: loc.id as 'all_bd' | 'dhaka_only' | 'divisional_cities' })}
-                  className={`p-3.5 rounded-2xl border-2 text-xs font-bold transition-all text-center active:scale-95 ${
+                  className={`p-3 rounded-lg border text-xs font-medium transition-colors text-center ${
                     profile.targetCity === loc.id
-                      ? 'border-emerald-600 bg-emerald-50 text-emerald-950 shadow-xs'
+                      ? 'border-emerald-600 bg-emerald-50/50 text-slate-900 font-semibold'
                       : 'border-slate-200 bg-white text-slate-600 hover:border-slate-300'
                   }`}
                 >
@@ -551,13 +470,13 @@ export function Step1BusinessProfile() {
         </div>
       )}
 
-      {/* Modern 2026 Navigation Actions */}
-      <div className="pt-4 flex items-center gap-3">
+      {/* Navigation Buttons */}
+      <div className="pt-3 flex items-center gap-3">
         {subStep > 1 && (
           <button
             type="button"
             onClick={handleBack}
-            className="flex-1 py-4 px-4 bg-white hover:bg-slate-50 text-slate-700 font-extrabold rounded-2xl border border-slate-200 shadow-xs transition-all flex items-center justify-center gap-2 active:scale-95 text-sm"
+            className="flex-1 py-3 px-4 bg-white hover:bg-slate-50 text-slate-700 font-medium rounded-xl border border-slate-200 transition-colors flex items-center justify-center gap-2 text-sm"
           >
             <ArrowLeft className="w-4 h-4" />
             <span>পেছনে যান</span>
@@ -567,10 +486,10 @@ export function Step1BusinessProfile() {
         <button
           type="button"
           onClick={handleNext}
-          className="flex-[2] py-4 px-6 bg-gradient-to-r from-emerald-600 via-teal-600 to-emerald-700 hover:from-emerald-700 hover:to-teal-800 text-white font-extrabold rounded-2xl transition-all shadow-lg shadow-emerald-600/25 flex items-center justify-center gap-2 active:scale-95 text-sm"
+          className="flex-[2] py-3 px-5 bg-slate-900 hover:bg-slate-800 text-white font-medium rounded-xl transition-colors flex items-center justify-center gap-2 text-sm"
         >
           <span>
-            {subStep === totalSubSteps ? 'আপনার পূর্ণাঙ্গ প্ল্যান দেখুন' : 'পরবর্তী ধাপ'}
+            {subStep === totalSubSteps ? 'সম্পূর্ণ প্ল্যান দেখুন' : 'পরবর্তী প্রশ্ন'}
           </span>
           <ArrowRight className="w-4 h-4" />
         </button>

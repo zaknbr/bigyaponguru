@@ -27,7 +27,7 @@ export function BottomNav() {
 
   return (
     <nav className="fixed bottom-3 left-3 right-3 z-40 sm:hidden">
-      <div className="bg-slate-900/90 backdrop-blur-2xl border border-slate-800/80 shadow-2xl rounded-2xl px-1.5 py-1.5 flex items-center justify-between">
+      <div className="bg-white/90 backdrop-blur-2xl border border-slate-200/90 shadow-xl shadow-slate-900/5 rounded-2xl p-1.5 flex items-center justify-between">
         {NAV_ITEMS.map((item) => {
           const Icon = item.icon;
           const isActive = currentStep === item.step;
@@ -39,14 +39,14 @@ export function BottomNav() {
                 setCurrentStep(item.step);
                 window.scrollTo({ top: 0, behavior: 'smooth' });
               }}
-              className={`flex-1 flex flex-col items-center justify-center py-1.5 rounded-xl transition-all active:scale-90 ${
+              className={`flex-1 flex flex-col items-center justify-center py-1.5 rounded-xl transition-all active:scale-95 ${
                 isActive
-                  ? 'bg-emerald-500/20 text-emerald-400 font-bold'
-                  : 'text-slate-400 hover:text-white'
+                  ? 'bg-emerald-50 text-emerald-700 font-semibold'
+                  : 'text-slate-400 hover:text-slate-700'
               }`}
             >
-              <Icon className={`w-4 h-4 transition-transform ${isActive ? 'scale-110 text-emerald-400' : ''}`} />
-              <span className={`text-[9px] mt-0.5 tracking-tight ${isActive ? 'text-emerald-300 font-black' : 'text-slate-400'}`}>
+              <Icon className={`w-4 h-4 transition-transform ${isActive ? 'scale-105 text-emerald-600' : ''}`} />
+              <span className={`text-[10px] mt-0.5 tracking-tight ${isActive ? 'text-emerald-700 font-semibold' : 'text-slate-500 font-normal'}`}>
                 {item.label}
               </span>
             </button>
